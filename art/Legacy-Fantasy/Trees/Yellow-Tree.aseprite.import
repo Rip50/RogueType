@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://s01od26fmoh3"
+path="res://.godot/imported/Yellow-Tree.aseprite-ebdc14909e621c65d3fcaecc7e53adf4.res"
+
+[deps]
+
+source_file="res://art/Legacy-Fantasy/Trees/Yellow-Tree.aseprite"
+dest_files=["res://.godot/imported/Yellow-Tree.aseprite-ebdc14909e621c65d3fcaecc7e53adf4.res"]
+
+[params]
+

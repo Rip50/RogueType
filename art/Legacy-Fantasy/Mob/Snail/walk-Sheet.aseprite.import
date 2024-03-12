@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ssxxc3f1hnfm"
+path="res://.godot/imported/walk-Sheet.aseprite-d29afd13bf4339036298e2b20031d779.res"
+
+[deps]
+
+source_file="res://art/Legacy-Fantasy/Mob/Snail/walk-Sheet.aseprite"
+dest_files=["res://.godot/imported/walk-Sheet.aseprite-d29afd13bf4339036298e2b20031d779.res"]
+
+[params]
+

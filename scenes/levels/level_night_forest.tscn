@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6ok5pas6jxec"]
+
+[ext_resource type="PackedScene" uid="uid://ct4np4nltn4rp" path="res://scenes/player.tscn" id="2_g0ohw"]
+[ext_resource type="Texture2D" uid="uid://dtpetthfnm6ia" path="res://art/environment/sky_night.png" id="2_s387h"]
+[ext_resource type="Texture2D" uid="uid://dbvtixnfyjo5a" path="res://art/environment/horizon_mountains_night.png" id="3_m10qf"]
+[ext_resource type="Texture2D" uid="uid://6lb5d6qvciow" path="res://art/environment/background_forest_night.png" id="4_3n1dd"]
+[ext_resource type="PackedScene" uid="uid://be51urbubnfam" path="res://scenes/blood_drop.tscn" id="5_dndwh"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xlme"]
+distance = -449.56
+
+[node name="Level_NightForest" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_g0ohw")]
+position = Vector2(159, 400)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Environment"]
+
+[node name="Sky" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+motion_scale = Vector2(0.01, 1)
+motion_mirroring = Vector2(3481.6, 0)
+
+[node name="SkyNight" type="Sprite2D" parent="Environment/ParallaxBackground/Sky"]
+position = Vector2(812.8, 249.6)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_s387h")
+
+[node name="Horizon" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+motion_scale = Vector2(0.05, 1)
+motion_mirroring = Vector2(3481.6, 0)
+
+[node name="HorizonMountainsNight" type="Sprite2D" parent="Environment/ParallaxBackground/Horizon"]
+position = Vector2(812.8, 249.6)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("3_m10qf")
+
+[node name="Background" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+motion_mirroring = Vector2(3481.6, 0)
+
+[node name="BackgroundForestNight" type="Sprite2D" parent="Environment/ParallaxBackground/Background"]
+position = Vector2(812.8, 249.6)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("4_3n1dd")
+
+[node name="Ground" type="StaticBody2D" parent="Environment" groups=["ground"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
+shape = SubResource("WorldBoundaryShape2D_1xlme")
+one_way_collision = true
+one_way_collision_margin = 2.0
+
+[node name="BloodDrop" parent="." instance=ExtResource("5_dndwh")]
+z_index = -10
+position = Vector2(256, 384)

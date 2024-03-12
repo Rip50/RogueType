@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dm6hb2s8aj1yp"
+path="res://.godot/imported/Background.aseprite-ad0a8afa8559199f97d97e40d6c426cd.res"
+
+[deps]
+
+source_file="res://art/Legacy-Fantasy/Trees/Background.aseprite"
+dest_files=["res://.godot/imported/Background.aseprite-ad0a8afa8559199f97d97e40d6c426cd.res"]
+
+[params]
+

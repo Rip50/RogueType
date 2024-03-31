@@ -117,9 +117,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gsnfh")
 }],
-"loop": true,
+"loop": false,
 "name": &"melee_1",
-"speed": 20.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -134,9 +134,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_frqtw")
 }],
-"loop": true,
+"loop": false,
 "name": &"melee_2",
-"speed": 20.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -183,7 +183,6 @@ script = ExtResource("1_ngdcq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")
 animation = &"melee_1"
-frame_progress = 0.229704
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")
@@ -193,3 +192,7 @@ shape = SubResource("CapsuleShape2D_yemya")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAtackZone"]
 position = Vector2(27, 2)
 shape = SubResource("RectangleShape2D_eu5j5")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true

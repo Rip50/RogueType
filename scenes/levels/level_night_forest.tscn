@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6ok5pas6jxec"]
+[gd_scene load_steps=8 format=3 uid="uid://c6ok5pas6jxec"]
 
+[ext_resource type="PackedScene" uid="uid://b77mv2ifdrhdw" path="res://scenes/ui/typing_interface.tscn" id="1_363sn"]
 [ext_resource type="PackedScene" uid="uid://ct4np4nltn4rp" path="res://scenes/player.tscn" id="2_g0ohw"]
 [ext_resource type="Texture2D" uid="uid://dtpetthfnm6ia" path="res://art/environment/sky_night.png" id="2_s387h"]
 [ext_resource type="Texture2D" uid="uid://dbvtixnfyjo5a" path="res://art/environment/horizon_mountains_night.png" id="3_m10qf"]
@@ -10,6 +11,8 @@
 distance = -449.56
 
 [node name="Level_NightForest" type="Node2D"]
+
+[node name="TypingInterface" parent="." instance=ExtResource("1_363sn")]
 
 [node name="Player" parent="." instance=ExtResource("2_g0ohw")]
 position = Vector2(159, 400)

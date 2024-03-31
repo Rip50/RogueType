@@ -12,6 +12,8 @@ func _physics_process(delta):
 	else:
 		stop_smoothly()
 		
+	# TODO: add space reaction and hit
+		
 	move_and_slide()
 
 

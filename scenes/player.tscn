@@ -188,6 +188,8 @@ animation = &"melee_1"
 shape = SubResource("CapsuleShape2D_yemya")
 
 [node name="MeleeAtackZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAtackZone"]
 position = Vector2(27, 2)

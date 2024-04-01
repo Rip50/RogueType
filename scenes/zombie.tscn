@@ -1,6 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://vu2yk3702nqa"]
+[gd_scene load_steps=34 format=3 uid="uid://vu2yk3702nqa"]
 
 [ext_resource type="Texture2D" uid="uid://o7cveg0tptjd" path="res://art/zombie-sheet.png" id="1_555a7"]
+[ext_resource type="Script" path="res://scenes/zombie.gd" id="1_n530s"]
+[ext_resource type="PackedScene" uid="uid://cf7ypvvicff7y" path="res://scenes/stats/health_stats.tscn" id="2_p08xo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4r1w"]
 atlas = ExtResource("1_555a7")
@@ -230,17 +232,21 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d50cn"]
 height = 43.0
 
-[node name="Zombie" type="CharacterBody2D"]
+[node name="Zombie" type="CharacterBody2D" groups=["Damageble", "Enemy"]]
+z_index = -10
 scale = Vector2(2.3, 2.3)
-collision_layer = 5
+collision_layer = 6
 collision_mask = 2
+script = ExtResource("1_n530s")
+
+[node name="HealthStats" parent="." instance=ExtResource("2_p08xo")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_llsic")
 animation = &"iddle"
 autoplay = "iddle"
-frame_progress = 0.746334
+frame_progress = 0.655902
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

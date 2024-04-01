@@ -764,6 +764,7 @@ animations = [{
 [node name="BloodDrop" type="RigidBody2D"]
 collision_layer = 0
 mass = 0.1
+lock_rotation = true
 script = ExtResource("1_6pq2y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

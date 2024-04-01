@@ -12,12 +12,19 @@ var player_state := PlayerState.IDLE
 var attack_type := AttackType.NONE
 var is_attacking := false
 
+# Melee attack duration. Used in MeleeAttackZone collision detection
+var attack_duration := 0.1
+
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
+@onready var melee_attack_zone: Area2D = $MeleeAttackZone
 
 func _ready() -> void:
 	animator.animation_finished.connect(_transite_to_idle)
 	attack_timer.timeout.connect(_complete_attack)
+	
+	# Hide by default to disable collision detection
+	melee_attack_zone.monitoring = false
 	
 	player_state = PlayerState.IDLE
 	animator.play("idle")
@@ -57,13 +64,23 @@ func attack() -> void:
 	if attack_type == AttackType.NONE or attack_type == AttackType.MELEE_2:
 		attack_type = AttackType.MELEE_1
 		animator.play("melee_1")
-		is_attacking = true
 	elif attack_type == AttackType.MELEE_1:
 		attack_type = AttackType.MELEE_2
 		animator.play("melee_2")
-		is_attacking = true
-
-
+	
+	is_attacking = true
+	
+	melee_attack_zone.monitoring = true
+	# Use await with create_timer for attack duration
+	await get_tree().create_timer(attack_duration).timeout
+	#  Instead of directly setting monitoring to false, defer the change to get
+	#rid of error
+	call_deferred("set_melee_monitoring_state", false)
+	
+	
+func set_melee_monitoring_state(state: bool) -> void:
+	melee_attack_zone.monitoring = state
+	
 func _stop_smoothly() -> void:
 	if player_state != PlayerState.RUNNING:
 		return

@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 @onready var health_stats: HealthStats = $HealthStats
 var blood_drop_scene := preload("res://scenes/blood_drop.tscn")
-
+var zombie_explosion_scene := preload("res://scenes/enemies/zombie_explosion.tscn")
 
 func _ready() -> void:
-	health_stats.died.connect(queue_free)
+	health_stats.died.connect(die)
 	
 
 func take_damage(damage_amount: int) -> void:
@@ -21,5 +21,12 @@ func take_damage(damage_amount: int) -> void:
 	get_parent().add_child(blood_drop)  # Adding it to the parent to avoid positional offsets
 	
 	health_stats.take_damage(damage_amount)
+	
+	
+func die() -> void:
+	var explosion = zombie_explosion_scene.instantiate()
+	explosion.global_position = self.global_position
+	get_parent().add_child(explosion)
+	call_deferred("queue_free")
 
 

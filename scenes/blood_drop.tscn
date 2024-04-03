@@ -911,7 +911,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"1_splatting",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1264,6 +1264,7 @@ animations = [{
 collision_layer = 0
 mass = 0.1
 lock_rotation = true
+freeze_mode = 1
 script = ExtResource("1_6pq2y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1271,6 +1272,6 @@ shape = SubResource("CircleShape2D_gyrcp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1ciys")
-animation = &"1_airborn"
+animation = &"1_splatting"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1261,6 +1261,7 @@ animations = [{
 }]
 
 [node name="BloodDrop" type="RigidBody2D"]
+z_index = -20
 collision_layer = 0
 mass = 0.1
 lock_rotation = true

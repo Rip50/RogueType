@@ -129,3 +129,5 @@ region_rect = Rect2(84, 4, 8, 8)
 position = Vector2(0, -5)
 rotation = 0.712025
 shape = SubResource("RectangleShape2D_fy21x")
+
+[node name="DisappearanceTimer" type="Timer" parent="."]

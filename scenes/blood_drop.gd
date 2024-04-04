@@ -16,6 +16,7 @@ func _ready():
 	# Apply an initial impulse to simulate the splatter effect
 	linear_velocity = Vector2(randf_range(0, 200), randf_range(-300, -400))
 
+
 func play_animation(animation_stage):
 	var animation_name = str(blood_type) + "_" + animation_stage
 	animator.play(animation_name)
@@ -29,11 +30,13 @@ func play_animation(animation_stage):
 		is_splattered = true
 		animator.animation_finished.connect(_start_fade_out, CONNECT_ONE_SHOT)
 
+
 func _on_animation_finished(animation_stage):
 	if animation_stage == "beginning" && !is_splattered:
 		play_animation("airborn")
 	elif animation_stage == "splatting":
 		_start_fade_out()
+
 
 func _on_body_entered(body):
 	# Condition to check if it's time to play the 'splatting' animation
@@ -42,9 +45,11 @@ func _on_body_entered(body):
 		play_animation("splatting")
 	pass
 
+
 func _start_fade_out():
 	await get_tree().create_timer(2.0).timeout # Wait for 2 seconds before fading
 	_fade_out()
+
 
 func _fade_out():
 	var tween := create_tween()

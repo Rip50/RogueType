@@ -242,7 +242,7 @@ script = ExtResource("1_n530s")
 [node name="HealthStats" parent="." instance=ExtResource("2_p08xo")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -4)
+position = Vector2(0, -8)
 scale = Vector2(2.3, 2.3)
 sprite_frames = SubResource("SpriteFrames_llsic")
 animation = &"iddle"
@@ -251,5 +251,4 @@ frame_progress = 0.655902
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5, 4)
 shape = SubResource("CapsuleShape2D_d50cn")

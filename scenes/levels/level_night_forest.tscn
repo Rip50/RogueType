@@ -1,19 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6ok5pas6jxec"]
+[gd_scene load_steps=9 format=3 uid="uid://c6ok5pas6jxec"]
 
 [ext_resource type="PackedScene" uid="uid://b77mv2ifdrhdw" path="res://scenes/ui/typing_interface.tscn" id="1_363sn"]
 [ext_resource type="PackedScene" uid="uid://ct4np4nltn4rp" path="res://scenes/player.tscn" id="2_g0ohw"]
 [ext_resource type="Texture2D" uid="uid://dtpetthfnm6ia" path="res://art/environment/sky_night.png" id="2_s387h"]
 [ext_resource type="Texture2D" uid="uid://dbvtixnfyjo5a" path="res://art/environment/horizon_mountains_night.png" id="3_m10qf"]
 [ext_resource type="Texture2D" uid="uid://6lb5d6qvciow" path="res://art/environment/background_forest_night.png" id="4_3n1dd"]
+[ext_resource type="PackedScene" uid="uid://bqp820fkxpk4j" path="res://scenes/enemy_generator.tscn" id="6_7sfao"]
 [ext_resource type="PackedScene" uid="uid://vu2yk3702nqa" path="res://scenes/enemies/zombie.tscn" id="6_8g5ty"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xlme"]
-distance = -449.56
+distance = -450.0
 
 [node name="Level_NightForest" type="Node2D"]
 
 [node name="TypingInterface" parent="." instance=ExtResource("1_363sn")]
-visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_g0ohw")]
 position = Vector2(159, 400)
@@ -57,14 +57,8 @@ shape = SubResource("WorldBoundaryShape2D_1xlme")
 one_way_collision = true
 one_way_collision_margin = 2.0
 
-[node name="Zombie" parent="." instance=ExtResource("6_8g5ty")]
-position = Vector2(376, 393)
-
-[node name="Zombie2" parent="." instance=ExtResource("6_8g5ty")]
-position = Vector2(424, 393)
-
-[node name="Zombie3" parent="." instance=ExtResource("6_8g5ty")]
-position = Vector2(544, 393)
-
-[node name="Zombie4" parent="." instance=ExtResource("6_8g5ty")]
-position = Vector2(456, 393)
+[node name="EnemyGenerator" parent="." node_paths=PackedStringArray("player", "ground") instance=ExtResource("6_7sfao")]
+player = NodePath("../Player")
+enemies = Array[PackedScene]([ExtResource("6_8g5ty")])
+ground = NodePath("../Environment/Ground")
+vieport_offset = Vector2(50, -1)

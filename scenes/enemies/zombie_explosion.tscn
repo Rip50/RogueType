@@ -37,7 +37,7 @@ region_enabled = true
 region_rect = Rect2(2, 3, 11, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Part1"]
-position = Vector2(1.19209e-07, -1.5)
+position = Vector2(2.9802e-08, -2)
 rotation = -0.733197
 shape = SubResource("RectangleShape2D_msyy5")
 
@@ -64,7 +64,7 @@ max_contacts_reported = 10
 contact_monitor = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Part3"]
-position = Vector2(-0.999999, -18)
+position = Vector2(-5.57181, -18.432)
 rotation = -0.742397
 scale = Vector2(2.3, 2.3)
 texture = ExtResource("2_g7qwg")
@@ -73,7 +73,7 @@ region_enabled = true
 region_rect = Rect2(66, 1, 11, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Part3"]
-position = Vector2(-1, -18)
+position = Vector2(-5.57181, -18.432)
 shape = SubResource("CircleShape2D_bc1n6")
 
 [node name="Part4" type="RigidBody2D" parent="."]

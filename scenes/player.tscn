@@ -1,10 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://ct4np4nltn4rp"]
+[gd_scene load_steps=28 format=3 uid="uid://ct4np4nltn4rp"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
 [ext_resource type="Texture2D" uid="uid://0f4ckddvmngd" path="res://art/Legacy-Fantasy/Character/Attack-01/Attack-01-Sheet.png" id="3_12307"]
 [ext_resource type="Texture2D" uid="uid://b5njtoqq7nv6h" path="res://art/Legacy-Fantasy/Character/Run/Run-Sheet.png" id="3_e2k0y"]
-[ext_resource type="Script" path="res://scenes/melee_attack_zone.gd" id="5_3mf0c"]
+[ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_lxc2d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhy6l"]
 atlas = ExtResource("2_c78ph")
@@ -172,9 +172,6 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yemya"]
 height = 48.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu5j5"]
-size = Vector2(31, 38)
-
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 collision_layer = 2
@@ -189,14 +186,8 @@ animation = &"melee_1"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")
 
-[node name="MeleeAttackZone" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 12
-script = ExtResource("5_3mf0c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttackZone"]
-position = Vector2(27, 2)
-shape = SubResource("RectangleShape2D_eu5j5")
+[node name="MeleeAttackZone" parent="." instance=ExtResource("5_lxc2d")]
+position = Vector2(26.5, 0)
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.8

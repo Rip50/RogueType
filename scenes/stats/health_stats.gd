@@ -1,6 +1,5 @@
-extends Node
-
 class_name HealthStats
+extends Node
 
 var max_health: int
 var current_health: int

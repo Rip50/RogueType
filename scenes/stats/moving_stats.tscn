@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dssyd112yer2n"]
+
+[ext_resource type="Script" path="res://scenes/stats/moving_stats.gd" id="1_10i33"]
+
+[node name="MovingStats" type="Node"]
+script = ExtResource("1_10i33")

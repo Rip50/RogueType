@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://10cog181cq5u"]
+
+[ext_resource type="Script" path="res://scenes/melee_attack_zone.gd" id="1_f8j2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eu5j5"]
+size = Vector2(31, 38)
+
+[node name="MeleeAttackZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 12
+script = ExtResource("1_f8j2j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eu5j5")

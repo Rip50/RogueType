@@ -1,6 +1,12 @@
+class_name MeleeAtackZone
 extends Area2D
 
+@export var size: int = 32
+
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 func _ready() -> void:
+	collision_shape_2d.shape.size.x = size
 	body_entered.connect(_on_body_entered)
 	
 	

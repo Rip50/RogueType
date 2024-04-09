@@ -12,7 +12,8 @@ func _ready() -> void:
 			continue
 			
 		var distance_to_explosion = child.global_position.distance_to(explosion_center)
-		var direction = (child.global_position - explosion_center).normalized()
+		var randomized_child_position = child.global_position + Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
+		var direction = (randomized_child_position - explosion_center).normalized()
 		var force_magnitude = distance_to_explosion * randf_range(1, 10) # Example force calculation
 		var force = direction * force_magnitude
 		

@@ -1,4 +1,7 @@
 class_name Enemy
 extends CharacterBody2D
 
-const SPEED = 300.0
+func _physics_process(delta: float) -> void:
+	if velocity == Vector2.ZERO:
+		return
+	move_and_slide()

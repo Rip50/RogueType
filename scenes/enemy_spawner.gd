@@ -5,6 +5,7 @@ extends Node
 @export var enemies: Array[PackedScene]
 @export var ground: Node2D
 @export var vieport_offset := Vector2(0.0, -1.0)
+@export var maximum_enemies_in_group := 1
 
 @onready var timer: Timer = $Timer
 
@@ -26,7 +27,8 @@ func _generate() -> void:
 	var enemy_scene = enemies[enemy_idx]
 	var position = _get_enemy_position(enemy_scene)
 	
-	_generate_enemies(enemy_scene, position, randi_range(1, 5))
+	var enemy_group_size = randi_range(1, maximum_enemies_in_group)
+	_generate_enemies(enemy_scene, position, enemy_group_size)
 	
 	_start_timer_random_timeout()
 

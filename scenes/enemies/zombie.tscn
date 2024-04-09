@@ -1,10 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://vu2yk3702nqa"]
+[gd_scene load_steps=41 format=3 uid="uid://vu2yk3702nqa"]
 
 [ext_resource type="Texture2D" uid="uid://o7cveg0tptjd" path="res://art/zombie-sheet.png" id="1_555a7"]
 [ext_resource type="Script" path="res://scenes/enemies/zombie.gd" id="1_n530s"]
-[ext_resource type="PackedScene" uid="uid://cf7ypvvicff7y" path="res://scenes/stats/health_stats.tscn" id="2_p08xo"]
-[ext_resource type="PackedScene" uid="uid://dssyd112yer2n" path="res://scenes/stats/moving_stats.tscn" id="3_8qp6p"]
-[ext_resource type="Script" path="res://scenes/states/enemy_wander_state.gd" id="4_3x1up"]
+[ext_resource type="Script" path="res://scenes/states/enemy_iddle_state.gd" id="2_f00md"]
+[ext_resource type="Script" path="res://scenes/states/enemy_wandering_state.gd" id="3_873i1"]
+[ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="4_2epim"]
+[ext_resource type="Script" path="res://scenes/states/enemy_attacking_state.gd" id="4_4q7ti"]
+[ext_resource type="Script" path="res://scenes/states/enemy_prepare_attack_state.gd" id="4_mpwxv"]
+[ext_resource type="Script" path="res://scenes/stats/moving_stats.gd" id="5_lksno"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_tx2j2"]
 [ext_resource type="Script" path="res://scenes/state_machine.gd" id="5_yt1yb"]
 
@@ -239,14 +242,40 @@ height = 102.0
 
 [node name="Zombie" type="CharacterBody2D" groups=["Damageble", "Enemy"]]
 z_index = -10
-collision_layer = 6
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_n530s")
 
-[node name="HealthStats" parent="." instance=ExtResource("2_p08xo")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state", "label")]
+script = ExtResource("5_yt1yb")
+state = NodePath("EnemyWanderingState")
+label = NodePath("../Label")
 
-[node name="MovingStats" parent="." node_paths=PackedStringArray("character") instance=ExtResource("3_8qp6p")]
+[node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "actor")]
+script = ExtResource("3_873i1")
+vision_cast = NodePath("../../Sight")
+actor = NodePath("../..")
+
+[node name="EnemyPrepareAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_mpwxv")
+actor = NodePath("../..")
+
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_4q7ti")
+actor = NodePath("../..")
+
+[node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("2_f00md")
+wait_time_sec = 1.0
+actor = NodePath("../..")
+
+[node name="HealthStats" type="Node" parent="."]
+script = ExtResource("4_2epim")
+
+[node name="MovingStats" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("5_lksno")
 character = NodePath("..")
+max_speed = 100.0
 moving_direction = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -262,11 +291,13 @@ flip_h = true
 shape = SubResource("CapsuleShape2D_d50cn")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -12.0
-offset_top = -79.0
-offset_right = 28.0
-offset_bottom = -56.0
+offset_left = -41.0
+offset_top = -77.0
+offset_right = -1.0
+offset_bottom = -54.0
+scale = Vector2(1.2, 1)
 text = "Idle"
+horizontal_alignment = 1
 
 [node name="MeleeAttackZone" parent="." instance=ExtResource("5_tx2j2")]
 visible = false
@@ -274,14 +305,5 @@ position = Vector2(-39, 0)
 scale = Vector2(1, 2.24)
 
 [node name="Sight" type="RayCast2D" parent="."]
-target_position = Vector2(-40, 0)
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
-script = ExtResource("5_yt1yb")
-state = NodePath("EnemyWanderState")
-
-[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor", "vision_cast", "label")]
-script = ExtResource("4_3x1up")
-actor = NodePath("../..")
-vision_cast = NodePath("../../Sight")
-label = NodePath("../../Label")
+target_position = Vector2(-48, 0)
+collision_mask = 2

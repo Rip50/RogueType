@@ -18,8 +18,12 @@ var attack_duration := 0.1
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var melee_attack_zone: Area2D = $MeleeAttackZone
+@onready var health_stats: HealthStats = $HealthStats
+
 
 func _ready() -> void:
+	health_stats.health_changed.connect(SignalBus.emit_player_health_changed)
+	
 	animator.animation_finished.connect(_transite_to_idle)
 	attack_timer.timeout.connect(_complete_attack)
 	
@@ -113,3 +117,7 @@ func _complete_attack() -> void:
 
 func _can_attack() -> bool:
 	return !is_attacking and (player_state == PlayerState.IDLE or (player_state == PlayerState.MELEE and attack_type != AttackType.NONE))
+
+
+func take_damage(amount: int) -> void:
+	health_stats.take_damage(amount)

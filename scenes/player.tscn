@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://ct4np4nltn4rp"]
+[gd_scene load_steps=29 format=3 uid="uid://ct4np4nltn4rp"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
 [ext_resource type="Texture2D" uid="uid://0f4ckddvmngd" path="res://art/Legacy-Fantasy/Character/Attack-01/Attack-01-Sheet.png" id="3_12307"]
 [ext_resource type="Texture2D" uid="uid://b5njtoqq7nv6h" path="res://art/Legacy-Fantasy/Character/Run/Run-Sheet.png" id="3_e2k0y"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_lxc2d"]
+[ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="6_bwcow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhy6l"]
 atlas = ExtResource("2_c78ph")
@@ -178,6 +179,9 @@ collision_layer = 2
 collision_mask = 5
 slide_on_ceiling = false
 script = ExtResource("1_ngdcq")
+
+[node name="HealthStats" type="Node" parent="."]
+script = ExtResource("6_bwcow")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")

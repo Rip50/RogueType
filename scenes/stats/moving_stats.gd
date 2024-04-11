@@ -1,5 +1,5 @@
 class_name MovingStats
-extends Node
+extends Stats
 
 @export var character: CharacterBody2D
 @export var max_speed: float = 200

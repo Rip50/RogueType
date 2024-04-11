@@ -2,8 +2,10 @@ class_name MeleeAtackZone
 extends Area2D
 
 @export var size: int = 32
+@export var damage_group_name: String = "Damageble"
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 
 func _ready() -> void:
 	monitoring = false
@@ -12,5 +14,6 @@ func _ready() -> void:
 	
 	
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Damageble"):
+	if body.is_in_group(damage_group_name):
+		# can use Visitor pattern with AttackStats
 		body.take_damage(10)

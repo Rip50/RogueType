@@ -260,8 +260,9 @@ actor = NodePath("../..")
 script = ExtResource("4_mpwxv")
 actor = NodePath("../..")
 
-[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("melee_attack_zone", "actor")]
 script = ExtResource("4_4q7ti")
+melee_attack_zone = NodePath("../../MeleeAttackZone")
 actor = NodePath("../..")
 
 [node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
@@ -300,9 +301,10 @@ text = "Idle"
 horizontal_alignment = 1
 
 [node name="MeleeAttackZone" parent="." instance=ExtResource("5_tx2j2")]
-visible = false
 position = Vector2(-39, 0)
 scale = Vector2(1, 2.24)
+collision_mask = 2
+damage_group_name = "Player"
 
 [node name="Sight" type="RayCast2D" parent="."]
 target_position = Vector2(-48, 0)

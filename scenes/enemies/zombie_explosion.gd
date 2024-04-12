@@ -16,6 +16,10 @@ func _ready() -> void:
 		var direction = (randomized_child_position - explosion_center).normalized()
 		var force_magnitude = distance_to_explosion * randf_range(1, 10) # Example force calculation
 		var force = direction * force_magnitude
+
+		# TODO: Randomized angular rotation. Ex:
+		#var angular_force = randf_range(-1000, 1000)
+		#child.apply_torque_impulse(angular_force)
 		
 		child.apply_impulse(force)
 	

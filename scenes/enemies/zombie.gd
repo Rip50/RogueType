@@ -58,6 +58,7 @@ func die() -> void:
 	_disconnect_signals()
 	var explosion = zombie_explosion_scene.instantiate()
 	explosion.global_position = self.global_position
+	SignalBus.emit_enemy_died(self)
 	call_deferred("assign_to_parent", explosion)
 	queue_free()
 

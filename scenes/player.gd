@@ -19,6 +19,9 @@ var attack_duration := 0.1
 @onready var attack_timer: Timer = $AttackTimer
 @onready var melee_attack_zone: Area2D = $MeleeAttackZone
 @onready var health_stats: HealthStats = $HealthStats
+@onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
+
+var all_stats: Array[Stats]
 
 
 func _ready() -> void:
@@ -33,6 +36,9 @@ func _ready() -> void:
 	player_state = PlayerState.IDLE
 	animator.play("idle")
 
+	all_stats = [health_stats]
+
+
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -43,6 +49,12 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("attack"):
 		attack()
+		
+	if Input.is_action_just_pressed("pick_up"):
+		item_pickup_zone.pickup_start()
+		
+	if Input.is_action_just_released("pick_up"):
+		item_pickup_zone.pickup_finish()
 		
 	move_and_slide()
 
@@ -121,3 +133,16 @@ func _can_attack() -> bool:
 
 func take_damage(amount: int) -> void:
 	health_stats.take_damage(amount)
+	
+	
+func try_pickup_item(body: Node2D) -> bool:
+	var result := false
+	var item = body as Item
+
+	if item != null:
+		item.apply_to_health(health_stats)
+		result = true
+	
+	return result
+
+	

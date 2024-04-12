@@ -5,6 +5,7 @@ signal player_died
 signal game_started
 signal player_health_changed(value: int)
 signal player_gold_changed(value: int)
+signal enemy_died(enemy: Enemy)
 
 
 func emit_player_died() -> void:
@@ -21,3 +22,7 @@ func emit_player_health_changed(value: int) -> void:
 
 func emit_player_gold_changed(value: int) -> void:
 	player_gold_changed.emit(value)
+
+
+func emit_enemy_died(enemy: Enemy) -> void:
+	enemy_died.emit(enemy)

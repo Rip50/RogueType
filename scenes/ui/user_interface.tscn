@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bq3e801w55dpd"]
 
-[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/Interface/heart.png" id="1_hbs40"]
+[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/interface/heart.png" id="1_hbs40"]
 [ext_resource type="Script" path="res://scenes/ui/user_interface.gd" id="1_k7wxe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwtvn"]

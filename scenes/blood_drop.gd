@@ -38,7 +38,7 @@ func _on_animation_finished(animation_stage):
 		_start_fade_out()
 
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	# Condition to check if it's time to play the 'splatting' animation
 	# You might want to refine this check based on your game's logic
 	if not animator.is_playing() or !is_splattered:

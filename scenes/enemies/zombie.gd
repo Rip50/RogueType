@@ -16,7 +16,8 @@ var zombie_explosion_scene := preload("res://scenes/enemies/zombie_explosion.tsc
 @onready var enemy_wandering_state: EnemyWanderingState = $StateMachine/EnemyWanderingState
 @onready var enemy_prepare_attack_state: EnemyPrepareAttackState= $StateMachine/EnemyPrepareAttackState
 @onready var enemy_attacking_state: EnemyAttackingState = $StateMachine/EnemyAttackingState
-@onready var enemy_iddle_state: EnemyIddleState = $StateMachine/EnemyIddleState
+@onready var enemy_iddle_state: State = $StateMachine/EnemyIddleState
+
 
 # SM: Transitions
 @onready var enemy_iddle_transition := state_machine.change_state.bind(enemy_iddle_state)

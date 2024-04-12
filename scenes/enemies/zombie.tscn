@@ -267,7 +267,6 @@ actor = NodePath("../..")
 
 [node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
 script = ExtResource("2_f00md")
-wait_time_sec = 1.0
 actor = NodePath("../..")
 
 [node name="HealthStats" type="Node" parent="."]

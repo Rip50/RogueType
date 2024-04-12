@@ -33,3 +33,7 @@ func heal(heal_amount: int) -> void:
 # Returns true if current health is 0 or less, indicating the character is dead.
 func is_dead() -> bool:
 	return current_health <= 0
+
+
+func apply_effect(item: Item) -> void:
+	item.apply_to_health(self)

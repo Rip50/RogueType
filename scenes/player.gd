@@ -140,8 +140,9 @@ func try_pickup_item(body: Node2D) -> bool:
 	var item = body as Item
 
 	if item != null:
-		item.apply_to_health(health_stats)
-		result = true
+		for stat in all_stats:
+			if item.try_apply_for(stat):
+				result = true
 	
 	return result
 

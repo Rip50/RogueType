@@ -272,6 +272,7 @@ actor = NodePath("../..")
 
 [node name="HealthStats" type="Node" parent="."]
 script = ExtResource("4_2epim")
+current_health = 100
 
 [node name="MovingStats" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_lksno")

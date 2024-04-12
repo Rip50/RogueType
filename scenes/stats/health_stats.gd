@@ -2,15 +2,15 @@ class_name HealthStats
 extends Stats
 
 @export var max_health: int = 100
-var current_health: int
+@export var current_health: int
 
 signal died
 signal health_changed(value: int)
 
 
-# Constructor with an option to set max health.
-func _init() -> void:
-	self.current_health = max_health
+func _ready() -> void:
+	# When entire scene is build we want to see actual health value
+	call_deferred("emit_signal", "health_changed", current_health)
 
 
 # Reduces current health by the damage amount. Ensures health does not drop below 0.
@@ -28,6 +28,14 @@ func heal(heal_amount: int) -> void:
 	current_health += heal_amount
 	current_health = min(current_health, max_health)
 	health_changed.emit(current_health)
+
+
+func try_heal(heal_amount: int) -> bool:
+	if current_health == max_health:
+		return false
+		
+	heal(heal_amount)
+	return true
 
 
 # Returns true if current health is 0 or less, indicating the character is dead.

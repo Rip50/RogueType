@@ -183,6 +183,7 @@ script = ExtResource("1_ngdcq")
 
 [node name="HealthStats" type="Node" parent="."]
 script = ExtResource("6_bwcow")
+current_health = 50
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")

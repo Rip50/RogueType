@@ -8,7 +8,7 @@ extends Area2D
 
 
 func _ready() -> void:
-	monitoring = false
+	monitoring = true
 	collision_shape_2d.shape.size.x = size
 	body_entered.connect(_on_body_entered)
 	

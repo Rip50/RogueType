@@ -29,10 +29,7 @@ func _ready() -> void:
 	
 	animator.animation_finished.connect(_transite_to_idle)
 	attack_timer.timeout.connect(_complete_attack)
-	
-	# Hide by default to disable collision detection
-	melee_attack_zone.monitoring = false
-	
+		
 	player_state = PlayerState.IDLE
 	animator.play("idle")
 
@@ -51,10 +48,7 @@ func _physics_process(delta):
 		attack()
 		
 	if Input.is_action_just_pressed("pick_up"):
-		item_pickup_zone.pickup_start()
-		
-	if Input.is_action_just_released("pick_up"):
-		item_pickup_zone.pickup_finish()
+		item_pickup_zone.pickup()
 		
 	move_and_slide()
 
@@ -86,12 +80,17 @@ func attack() -> void:
 	
 	is_attacking = true
 	
-	melee_attack_zone.monitoring = true
+	# TODO: POC to replace melee attack zone body_intered signal approach (works).
+	# Add DamageStats, calculate damage from there. Maybe make sense to use Visitor 
+	# pattern to implementdamage modifiers
+	var bodies = melee_attack_zone.get_overlapping_bodies()
+	var damage_group_name := "Damageble"
+	for body in bodies:
+		if body.is_in_group(damage_group_name):
+			body.take_damage(10)
+	
 	# Use await with create_timer for attack duration
 	await get_tree().create_timer(attack_duration).timeout
-	#  Instead of directly setting monitoring to false, defer the change to get
-	#rid of error
-	call_deferred("set_melee_monitoring_state", false)
 	
 	
 func set_melee_monitoring_state(state: bool) -> void:

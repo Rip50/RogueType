@@ -22,6 +22,7 @@
 position = Vector2(0, -16)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(250, 0)
 
 [node name="Environment" type="Node" parent="."]
 

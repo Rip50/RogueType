@@ -2,6 +2,7 @@ class_name EnemyAttackingState
 extends State
 
 @export var melee_attack_zone: MeleeAtackZone
+@export var animated_sprite: AnimatedSprite2D
 
 signal attack_completed
 
@@ -12,6 +13,6 @@ func _ready() -> void:
 
 func enter_state() -> void:
 	melee_attack_zone.attack()
-	await get_tree().create_timer(2.0).timeout
+	animated_sprite.play("attack")
+	await animated_sprite.animation_finished
 	attack_completed.emit()
-	

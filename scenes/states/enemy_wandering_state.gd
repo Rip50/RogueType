@@ -2,12 +2,14 @@ class_name EnemyWanderingState
 extends State
 
 @export var vision_cast: RayCast2D
+@export var animated_sprite: AnimatedSprite2D
 
 signal saw_player
 
 
 func enter_state() -> void:
 	set_physics_process(true)
+	animated_sprite.play("walk")
 	actor.wander()
 
 

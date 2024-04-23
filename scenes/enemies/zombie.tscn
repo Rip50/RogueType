@@ -251,22 +251,26 @@ script = ExtResource("5_yt1yb")
 state = NodePath("EnemyWanderingState")
 label = NodePath("../Label")
 
-[node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "actor")]
+[node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "animated_sprite", "actor")]
 script = ExtResource("3_873i1")
 vision_cast = NodePath("../../Sight")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
 
-[node name="EnemyPrepareAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+[node name="EnemyPrepareAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "actor")]
 script = ExtResource("4_mpwxv")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
 
-[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("melee_attack_zone", "actor")]
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("melee_attack_zone", "animated_sprite", "actor")]
 script = ExtResource("4_4q7ti")
 melee_attack_zone = NodePath("../../MeleeAttackZone")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
 
-[node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+[node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "actor")]
 script = ExtResource("2_f00md")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
 
 [node name="HealthStats" type="Node" parent="."]
@@ -276,16 +280,15 @@ current_health = 100
 [node name="MovingStats" type="Node" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("5_lksno")
 character = NodePath("..")
-max_speed = 100.0
+max_speed = 50.0
 moving_direction = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 scale = Vector2(2.3, 2.3)
 sprite_frames = SubResource("SpriteFrames_llsic")
-animation = &"iddle"
+animation = &"attack"
 autoplay = "iddle"
-frame_progress = 0.655902
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

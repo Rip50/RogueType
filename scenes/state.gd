@@ -2,7 +2,7 @@ extends Node
 class_name State
 
 @export var actor : Enemy
-@export var animator : AnimatedSprite2D
+@export var animated_sprite : AnimatedSprite2D
 
 
 func enter_state() -> void:

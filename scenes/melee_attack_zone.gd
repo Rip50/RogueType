@@ -2,7 +2,7 @@ class_name MeleeAtackZone
 extends Area2D
 
 @export var size: int = 32
-@export var damage_group_name: String = "Damageble"
+@export var attack_stats: AttackStats
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
@@ -10,12 +10,13 @@ extends Area2D
 func attack() -> void:
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
-		if body.is_in_group(damage_group_name):
-			var health_stats = body.find_child("HealthStats")
-			if health_stats != null:
-				health_stats.take_damage(10)
+		var health_stats = body.find_child("HealthStats")
+		if health_stats != null:
+			health_stats.take_damage(attack_stats.get_melee_damage())
 
 
 func _ready() -> void:
 	monitoring = true
 	collision_shape_2d.shape.size.x = size
+	if attack_stats == null:
+		push_warning("attack_stats are null on MeleeAtackZone" + str(self))

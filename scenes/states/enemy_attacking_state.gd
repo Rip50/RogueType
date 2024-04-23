@@ -2,7 +2,6 @@ class_name EnemyAttackingState
 extends State
 
 @export var melee_attack_zone: MeleeAtackZone
-@export var animated_sprite: AnimatedSprite2D
 
 signal attack_completed
 

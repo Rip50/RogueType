@@ -7,6 +7,7 @@ extends Stats
 signal hurt
 signal died
 signal health_changed(value: int)
+signal max_health_changed(value: int)
 
 
 func _ready() -> void:
@@ -14,15 +15,18 @@ func _ready() -> void:
 	call_deferred("emit_signal", "health_changed", current_health)
 
 
-# Reduces current health by the damage amount. Ensures health does not drop below 0.
-func take_damage(damage_amount: int) -> void:
-	current_health -= damage_amount
+func take_damage(damage: Damage) -> void:
+	current_health -= damage.Value
+	
 	current_health = max(current_health, 0)
 	hurt.emit()
 	health_changed.emit(current_health)
 	
 	if current_health == 0:
 		died.emit()
+		
+	if damage.Effect != null:
+		damage.Effect.apply_effect([self])
 
 
 # Increases current health by the heal amount. Ensures health does not exceed max health.
@@ -43,7 +47,3 @@ func try_heal(heal_amount: int) -> bool:
 # Returns true if current health is 0 or less, indicating the character is dead.
 func is_dead() -> bool:
 	return current_health <= 0
-
-
-func apply_effect(item: Item) -> void:
-	item.apply_to_health(self)

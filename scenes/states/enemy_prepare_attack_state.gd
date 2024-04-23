@@ -1,13 +1,14 @@
 class_name EnemyPrepareAttackState
 extends State
 
-@export var attack_delay_sec := 2.0
-@export var animated_sprite: AnimatedSprite2D
+@export var attack_stats: AttackStats
 
 signal attack_ready
 
 func _ready() -> void:
 	set_physics_process(false)
+	if attack_stats == null:
+		push_warning("attack_stats are null in EnemyPrepareAttackState:" + str(self))
 	
 
 func enter_state() -> void:
@@ -16,5 +17,7 @@ func enter_state() -> void:
 	
 	animated_sprite.play("prepare_attack")
 	
-	await get_tree().create_timer(attack_delay_sec).timeout
+	var attack_delay = attack_stats.preparation_time_sec
+	await get_tree().create_timer(attack_delay).timeout
+	
 	attack_ready.emit()

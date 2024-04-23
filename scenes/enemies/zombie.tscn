@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://vu2yk3702nqa"]
+[gd_scene load_steps=42 format=3 uid="uid://vu2yk3702nqa"]
 
 [ext_resource type="Texture2D" uid="uid://o7cveg0tptjd" path="res://art/zombie-sheet.png" id="1_555a7"]
 [ext_resource type="Script" path="res://scenes/enemies/zombie.gd" id="1_n530s"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="4_2epim"]
 [ext_resource type="Script" path="res://scenes/states/enemy_attacking_state.gd" id="4_4q7ti"]
 [ext_resource type="Script" path="res://scenes/states/enemy_prepare_attack_state.gd" id="4_mpwxv"]
-[ext_resource type="Script" path="res://scenes/stats/moving_stats.gd" id="5_lksno"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_tx2j2"]
 [ext_resource type="Script" path="res://scenes/state_machine.gd" id="5_yt1yb"]
+[ext_resource type="Script" path="res://scenes/stats/movement_stats.gd" id="8_t7k5g"]
+[ext_resource type="Script" path="res://scenes/stats/attack_stats.gd" id="9_c4noe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4r1w"]
 atlas = ExtResource("1_555a7")
@@ -251,37 +252,43 @@ script = ExtResource("5_yt1yb")
 state = NodePath("EnemyWanderingState")
 label = NodePath("../Label")
 
-[node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "animated_sprite", "actor")]
+[node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "actor", "animated_sprite")]
 script = ExtResource("3_873i1")
 vision_cast = NodePath("../../Sight")
-animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="EnemyPrepareAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "actor")]
+[node name="EnemyPrepareAttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_stats", "actor", "animated_sprite")]
 script = ExtResource("4_mpwxv")
-animated_sprite = NodePath("../../AnimatedSprite2D")
+attack_stats = NodePath("../../AttackStats")
 actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("melee_attack_zone", "animated_sprite", "actor")]
+[node name="EnemyAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("melee_attack_zone", "actor", "animated_sprite")]
 script = ExtResource("4_4q7ti")
 melee_attack_zone = NodePath("../../MeleeAttackZone")
-animated_sprite = NodePath("../../AnimatedSprite2D")
 actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("animated_sprite", "actor")]
+[node name="EnemyIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_stats", "actor", "animated_sprite")]
 script = ExtResource("2_f00md")
-animated_sprite = NodePath("../../AnimatedSprite2D")
+attack_stats = NodePath("../../AttackStats")
 actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthStats" type="Node" parent="."]
 script = ExtResource("4_2epim")
 current_health = 100
 
-[node name="MovingStats" type="Node" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("5_lksno")
+[node name="MovementStats" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("8_t7k5g")
 character = NodePath("..")
 max_speed = 50.0
 moving_direction = 0
+
+[node name="AttackStats" type="Node" parent="."]
+script = ExtResource("9_c4noe")
+basic_damage = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
@@ -303,11 +310,11 @@ scale = Vector2(1.2, 1)
 text = "Idle"
 horizontal_alignment = 1
 
-[node name="MeleeAttackZone" parent="." instance=ExtResource("5_tx2j2")]
+[node name="MeleeAttackZone" parent="." node_paths=PackedStringArray("attack_stats") instance=ExtResource("5_tx2j2")]
 position = Vector2(-39, 0)
 scale = Vector2(1, 2.24)
 collision_mask = 2
-damage_group_name = "Player"
+attack_stats = NodePath("../AttackStats")
 
 [node name="Sight" type="RayCast2D" parent="."]
 target_position = Vector2(-48, 0)

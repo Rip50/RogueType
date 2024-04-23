@@ -120,10 +120,6 @@ func _complete_attack() -> void:
 
 func _can_attack() -> bool:
 	return !is_attacking and (player_state == PlayerState.IDLE or (player_state == PlayerState.MELEE and attack_type != AttackType.NONE))
-
-
-func take_damage(amount: int) -> void:
-	health_stats.take_damage(amount)
 	
 	
 func try_pickup_item(body: Node2D) -> bool:

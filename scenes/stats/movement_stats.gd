@@ -1,4 +1,4 @@
-class_name MovingStats
+class_name MovementStats
 extends Stats
 
 @export var character: CharacterBody2D

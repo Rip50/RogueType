@@ -247,10 +247,10 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_n530s")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state", "label")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state", "debug_label")]
 script = ExtResource("5_yt1yb")
 state = NodePath("EnemyWanderingState")
-label = NodePath("../Label")
+debug_label = NodePath("../Label")
 
 [node name="EnemyWanderingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("vision_cast", "actor", "animated_sprite")]
 script = ExtResource("3_873i1")
@@ -302,12 +302,12 @@ flip_h = true
 shape = SubResource("CapsuleShape2D_d50cn")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -41.0
 offset_top = -77.0
 offset_right = -1.0
 offset_bottom = -54.0
 scale = Vector2(1.2, 1)
-text = "Idle"
 horizontal_alignment = 1
 
 [node name="MeleeAttackZone" parent="." node_paths=PackedStringArray("attack_stats") instance=ExtResource("5_tx2j2")]

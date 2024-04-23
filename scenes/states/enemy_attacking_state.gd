@@ -1,7 +1,7 @@
 class_name EnemyAttackingState
 extends State
 
-@export var melee_attack_zone: Area2D
+@export var melee_attack_zone: MeleeAtackZone
 
 signal attack_completed
 
@@ -11,8 +11,7 @@ func _ready() -> void:
 
 
 func enter_state() -> void:
-	melee_attack_zone.monitoring = true
+	melee_attack_zone.attack()
 	await get_tree().create_timer(2.0).timeout
-	melee_attack_zone.monitoring = false
 	attack_completed.emit()
 	

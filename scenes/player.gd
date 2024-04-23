@@ -17,7 +17,7 @@ var attack_duration := 0.1
 
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
-@onready var melee_attack_zone: Area2D = $MeleeAttackZone
+@onready var melee_attack_zone: MeleeAtackZone = $MeleeAttackZone
 @onready var health_stats: HealthStats = $HealthStats
 @onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
 
@@ -79,15 +79,7 @@ func attack() -> void:
 		animator.play("melee_2")
 	
 	is_attacking = true
-	
-	# TODO: POC to replace melee attack zone body_intered signal approach (works).
-	# Add DamageStats, calculate damage from there. Maybe make sense to use Visitor 
-	# pattern to implementdamage modifiers
-	var bodies = melee_attack_zone.get_overlapping_bodies()
-	var damage_group_name := "Damageble"
-	for body in bodies:
-		if body.is_in_group(damage_group_name):
-			body.take_damage(10)
+	melee_attack_zone.attack()
 	
 	# Use await with create_timer for attack duration
 	await get_tree().create_timer(attack_duration).timeout
@@ -144,5 +136,3 @@ func try_pickup_item(body: Node2D) -> bool:
 				result = true
 	
 	return result
-
-	

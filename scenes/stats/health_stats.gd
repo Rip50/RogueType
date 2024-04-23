@@ -4,6 +4,7 @@ extends Stats
 @export var max_health: int = 100
 @export var current_health: int
 
+signal hurt
 signal died
 signal health_changed(value: int)
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 func take_damage(damage_amount: int) -> void:
 	current_health -= damage_amount
 	current_health = max(current_health, 0)
+	hurt.emit()
 	health_changed.emit(current_health)
 	
 	if current_health == 0:

@@ -7,13 +7,15 @@ extends Area2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 
+func attack() -> void:
+	var bodies = get_overlapping_bodies()
+	for body in bodies:
+		if body.is_in_group(damage_group_name):
+			var health_stats = body.find_child("HealthStats")
+			if health_stats != null:
+				health_stats.take_damage(10)
+
+
 func _ready() -> void:
 	monitoring = true
 	collision_shape_2d.shape.size.x = size
-	body_entered.connect(_on_body_entered)
-	
-	
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group(damage_group_name):
-		# can use Visitor pattern with AttackStats
-		body.take_damage(10)

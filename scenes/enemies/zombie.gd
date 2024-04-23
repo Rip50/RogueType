@@ -37,6 +37,7 @@ func _connect_signals() -> void:
 	enemy_attacking_state.attack_completed.connect(enemy_iddle_transition)
 
 	# Connect health stats
+	health_stats.hurt.connect(bleed)
 	health_stats.died.connect(die)
 
 
@@ -45,14 +46,15 @@ func _disconnect_signals() -> void:
 	enemy_iddle_state.enemy_ready.disconnect(enemy_prepare_attack_transition)
 	enemy_prepare_attack_state.attack_ready.disconnect(enemy_attacking_transition)
 	enemy_attacking_state.attack_completed.disconnect(enemy_iddle_transition)
+	
+	health_stats.hurt.disconnect(bleed)
 	health_stats.died.disconnect(die)
 
 
-func take_damage(damage_amount: int) -> void:
+func bleed() -> void:
 	var blood_drop = blood_drop_scene.instantiate()
 	blood_drop.global_position = self.global_position  # Ensure it's the zombie's position
-	call_deferred("assign_to_parent", blood_drop)	
-	health_stats.take_damage(damage_amount)
+	call_deferred("assign_to_parent", blood_drop)
 	
 	
 func die() -> void:
@@ -62,7 +64,6 @@ func die() -> void:
 	SignalBus.emit_enemy_died(self)
 	call_deferred("assign_to_parent", explosion)
 	queue_free()
-
 
 
 func assign_to_parent(node: Node2D) -> void:

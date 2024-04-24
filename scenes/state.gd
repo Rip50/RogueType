@@ -1,7 +1,7 @@
 extends Node
 class_name State
 
-@export var actor : Enemy
+@export var actor : CharacterBody2D
 @export var animated_sprite : AnimatedSprite2D
 
 

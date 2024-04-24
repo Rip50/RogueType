@@ -116,7 +116,8 @@ func _complete_attack() -> void:
 func _can_attack() -> bool:
 	return !is_attacking and (player_state == PlayerState.IDLE or (player_state == PlayerState.MELEE and attack_type != AttackType.NONE))
 	
-	
+
+######## Keep after refactoring:
 func try_pickup_item(body: Node2D) -> bool:
 	var result := false
 	var item = body as Item
@@ -127,3 +128,15 @@ func try_pickup_item(body: Node2D) -> bool:
 				result = true
 	
 	return result
+	
+
+func stop_smoothly() -> void:
+	movement_stats.stop_smoothly()
+	
+	
+func move() -> void:
+	movement_stats.move()
+
+
+func attack_melee() -> void:
+	melee_attack_zone.attack()

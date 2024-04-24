@@ -12,7 +12,7 @@ func enter_state() -> void:
 	actor.wander()
 
 
-func  _physics_process(delta: float) -> void:
+func  _physics_process(_delta: float) -> void:
 	var colliding_object = vision_cast.get_collider() as Node2D
 	if colliding_object != null and colliding_object.is_in_group("Player"):
 		print_debug("Saw player")

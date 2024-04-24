@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ct4np4nltn4rp"]
+[gd_scene load_steps=36 format=3 uid="uid://ct4np4nltn4rp"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
@@ -7,8 +7,12 @@
 [ext_resource type="Script" path="res://scenes/stats/attack_stats.gd" id="3_sjfsi"]
 [ext_resource type="Script" path="res://scenes/stats/movement_stats.gd" id="4_qtbgm"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_lxc2d"]
+[ext_resource type="Script" path="res://scenes/state_machine.gd" id="5_wfn3w"]
 [ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="6_bwcow"]
+[ext_resource type="Script" path="res://scenes/states/mia_melee_attacking_state.gd" id="6_d3b6g"]
+[ext_resource type="Script" path="res://scenes/states/mia_iddle_state.gd" id="6_gmtid"]
 [ext_resource type="PackedScene" uid="uid://wti6ha7f70jd" path="res://scenes/item_pickup_zone.tscn" id="7_7edtu"]
+[ext_resource type="Script" path="res://scenes/states/mia_running_state.gd" id="8_gdkca"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhy6l"]
 atlas = ExtResource("2_c78ph")
@@ -196,6 +200,31 @@ script = ExtResource("4_qtbgm")
 character = NodePath("..")
 max_speed = 300.0
 
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("5_wfn3w")
+state = NodePath("MiaIddleState")
+
+[node name="MiaMeleeAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "attack_stats", "actor", "animated_sprite")]
+script = ExtResource("6_d3b6g")
+sight = NodePath("../../Sight")
+attack_stats = NodePath("../../AttackStats")
+actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Timer" type="Timer" parent="StateMachine/MiaMeleeAttackingState"]
+
+[node name="MiaIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "actor", "animated_sprite")]
+script = ExtResource("6_gmtid")
+sight = NodePath("../../Sight")
+actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="MiaRunningState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "actor", "animated_sprite")]
+script = ExtResource("8_gdkca")
+sight = NodePath("../../Sight")
+actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")
 animation = &"melee_1"
@@ -214,3 +243,15 @@ one_shot = true
 [node name="ItemPickupZone" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("7_7edtu")]
 monitoring = true
 Player = NodePath("..")
+
+[node name="DebugLabel" type="Label" parent="."]
+visible = false
+offset_left = -40.0
+offset_top = -48.0
+offset_right = 56.0
+offset_bottom = -25.0
+
+[node name="Sight" type="RayCast2D" parent="."]
+position = Vector2(8, -8)
+target_position = Vector2(24, 24)
+collision_mask = 12

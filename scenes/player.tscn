@@ -110,7 +110,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_28oxo")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"iddle",
 "speed": 3.0
 }, {
 "frames": [{
@@ -200,9 +200,10 @@ script = ExtResource("4_qtbgm")
 character = NodePath("..")
 max_speed = 300.0
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state", "debug_label")]
 script = ExtResource("5_wfn3w")
 state = NodePath("MiaIddleState")
+debug_label = NodePath("../DebugLabel")
 
 [node name="MiaMeleeAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "attack_stats", "actor", "animated_sprite")]
 script = ExtResource("6_d3b6g")
@@ -227,7 +228,7 @@ animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")
-animation = &"melee_1"
+animation = &"iddle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")
@@ -235,10 +236,6 @@ shape = SubResource("CapsuleShape2D_yemya")
 [node name="MeleeAttackZone" parent="." node_paths=PackedStringArray("attack_stats") instance=ExtResource("5_lxc2d")]
 position = Vector2(26.5, 0)
 attack_stats = NodePath("../AttackStats")
-
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.8
-one_shot = true
 
 [node name="ItemPickupZone" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("7_7edtu")]
 monitoring = true
@@ -255,3 +252,5 @@ offset_bottom = -25.0
 position = Vector2(8, -8)
 target_position = Vector2(24, 24)
 collision_mask = 12
+
+[node name="ActionTimer" type="Timer" parent="."]

@@ -8,6 +8,7 @@ enum AttackType { NONE, MELEE_1, MELEE_2 }
 @onready var timer: Timer = $Timer
 
 var _last_attack_type: AttackType = AttackType.NONE
+var view_is_clear := false
 
 signal view_clear
 signal attack_completed
@@ -20,6 +21,7 @@ func _ready() -> void:
 
 
 func enter_state() -> void:
+	view_is_clear = false
 	set_physics_process(true)
 	animated_sprite.animation_finished.connect(attack)
 	attack()
@@ -28,11 +30,15 @@ func enter_state() -> void:
 func _physics_process(_delta: float) -> void:
 	var colliding_object = sight.get_collider() as Node2D
 	if colliding_object == null:
-		# TODO: wait for some time before emitting?
-		view_clear.emit()
+		view_is_clear = true
 
 
 func attack() -> void:
+	# Emmiting in the beginning of attack to make sure that animation has been finished
+	if view_is_clear:
+		view_clear.emit()
+		return
+		
 	if _last_attack_type == AttackType.MELEE_2:
 		_last_attack_type = AttackType.MELEE_1
 		animated_sprite.play("melee_1")

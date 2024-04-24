@@ -1,19 +1,5 @@
 extends CharacterBody2D
 
-# Enum that describes possible player states
-enum PlayerState { IDLE, MELEE, RUNNING }
-enum AttackType { NONE, MELEE_1, MELEE_2 }
-
-# Player states. TODO: Convert to state machine
-var player_state := PlayerState.IDLE
-var attack_type := AttackType.NONE
-var is_attacking := false
-
-# Melee attack duration. Used in MeleeAttackZone collision detection
-var attack_duration := 0.1
-
-@onready var animator: AnimatedSprite2D = $AnimatedSprite2D
-@onready var attack_timer: Timer = $AttackTimer
 @onready var melee_attack_zone: MeleeAtackZone = $MeleeAttackZone
 
 @onready var health_stats: HealthStats = $HealthStats
@@ -21,31 +7,53 @@ var attack_duration := 0.1
 @onready var attack_stats: AttackStats = $AttackStats
 
 @onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
+@onready var action_timer: Timer = $ActionTimer
 
 var all_stats: Array[Stats]
 
+# State machine
+@onready var state_machine: StateMachine = $StateMachine
 
-func _ready() -> void:
+# SM: States
+@onready var mia_melee_attacking_state: MiaMeleeAttackingState = $StateMachine/MiaMeleeAttackingState
+@onready var mia_iddle_state: MiaIddleState = $StateMachine/MiaIddleState
+@onready var mia_running_state: MiaRunningState = $StateMachine/MiaRunningState
+
+# SM: Transitions
+@onready var mia_melee_attacking_transition := state_machine.change_state.bind(mia_melee_attacking_state)
+@onready var mia_iddle_transition := state_machine.change_state.bind(mia_iddle_state)
+@onready var mia_running_transition := state_machine.change_state.bind(mia_running_state)
+
+
+func _ready() -> void:	
+	action_timer.autostart = false
+	action_timer.one_shot = true
+	
 	health_stats.health_changed.connect(SignalBus.emit_player_health_changed)
 	
-	animator.animation_finished.connect(_transite_to_idle)
-	attack_timer.timeout.connect(_complete_attack)
-		
-	player_state = PlayerState.IDLE
-	animator.play("idle")
-
 	all_stats = [health_stats, movement_stats, attack_stats]
+	
+	mia_iddle_state.saw_enemy.connect(try_transit.bind(mia_melee_attacking_transition))
+	mia_running_state.saw_enemy.connect(try_transit.bind(mia_melee_attacking_transition))
+	mia_melee_attacking_state.view_clear.connect(try_transit.bind(mia_running_transition))
+	
+	action_timer.timeout.connect(mia_iddle_transition)
+
+
+func try_transit(transition: Callable) -> void:
+	if action_timer.is_stopped():
+		return
+	
+	transition.call()
 
 
 func _physics_process(delta):
-	# Get the input direction and handle the movement/deceleration.
-	if Input.is_action_pressed("move_right"):
-		run()
-	else:
-		_stop_smoothly()
-		
-	if Input.is_action_pressed("attack"):
-		attack()
+	if Input.is_action_just_pressed("move_right"):
+		if action_timer.is_stopped():
+			# Workaround to trigger transition after action_timer timed out
+			mia_running_transition.call()
+			
+		action_timer.start(1)
 		
 	if Input.is_action_just_pressed("pick_up"):
 		item_pickup_zone.pickup()
@@ -53,71 +61,6 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func run() -> void:
-	attack_type = AttackType.NONE		
-	movement_stats.move()
-	player_state = PlayerState.RUNNING
-	animator.play("running")
-	
-
-func attack() -> void:
-	if !_can_attack():
-		return
-		
-	player_state = PlayerState.MELEE
-	
-	if attack_type == AttackType.NONE or attack_type == AttackType.MELEE_2:
-		attack_type = AttackType.MELEE_1
-		animator.play("melee_1")
-	elif attack_type == AttackType.MELEE_1:
-		attack_type = AttackType.MELEE_2
-		animator.play("melee_2")
-	
-	is_attacking = true
-	melee_attack_zone.attack()
-	
-	# Use await with create_timer for attack duration
-	await get_tree().create_timer(attack_duration).timeout
-	
-	
-func set_melee_monitoring_state(state: bool) -> void:
-	melee_attack_zone.monitoring = state
-	
-func _stop_smoothly() -> void:
-	if player_state != PlayerState.RUNNING:
-		return
-		
-	movement_stats.stop_smoothly()
-	_transite_to_idle()
-
-
-func _transite_to_idle() -> void:
-	is_attacking = false
-	attack_timer.stop()
-	
-	if attack_type != AttackType.NONE:
-		attack_timer.start()
-		return
-		
-	player_state = PlayerState.IDLE
-	animator.play("idle")
-	
-
-func _complete_attack() -> void:
-	attack_type = AttackType.NONE
-	is_attacking = false
-	
-	if player_state != PlayerState.MELEE:
-		return
-		
-	_transite_to_idle()
-	
-
-func _can_attack() -> bool:
-	return !is_attacking and (player_state == PlayerState.IDLE or (player_state == PlayerState.MELEE and attack_type != AttackType.NONE))
-	
-
-######## Keep after refactoring:
 func try_pickup_item(body: Node2D) -> bool:
 	var result := false
 	var item = body as Item

@@ -8,7 +8,6 @@ extends Enemy
 var blood_drop_scene := preload("res://scenes/blood_drop.tscn")
 var zombie_explosion_scene := preload("res://scenes/enemies/zombie_explosion.tscn")
 
-
 # State machine
 @onready var state_machine: StateMachine = $StateMachine
 

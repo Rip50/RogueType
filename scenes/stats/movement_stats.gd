@@ -15,3 +15,7 @@ func move() -> void:
 
 func stop() -> void:
 	character.velocity = Vector2.ZERO
+	
+
+func stop_smoothly() -> void:
+	character.velocity.x = move_toward(character.velocity.x, 0, max_speed)

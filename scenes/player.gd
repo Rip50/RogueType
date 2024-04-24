@@ -4,9 +4,6 @@ extends CharacterBody2D
 enum PlayerState { IDLE, MELEE, RUNNING }
 enum AttackType { NONE, MELEE_1, MELEE_2 }
 
-const SPEED = 300.0
-const RUNNING_DIRECTION = 1.0 #To the right
-
 # Player states. TODO: Convert to state machine
 var player_state := PlayerState.IDLE
 var attack_type := AttackType.NONE
@@ -18,7 +15,11 @@ var attack_duration := 0.1
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
 @onready var melee_attack_zone: MeleeAtackZone = $MeleeAttackZone
+
 @onready var health_stats: HealthStats = $HealthStats
+@onready var movement_stats: MovementStats = $MovementStats
+@onready var attack_stats: AttackStats = $AttackStats
+
 @onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
 
 var all_stats: Array[Stats]
@@ -33,14 +34,13 @@ func _ready() -> void:
 	player_state = PlayerState.IDLE
 	animator.play("idle")
 
-	all_stats = [health_stats]
+	all_stats = [health_stats, movement_stats, attack_stats]
 
 
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	if Input.is_action_pressed("move_right"):
-		run(RUNNING_DIRECTION)
+		run()
 	else:
 		_stop_smoothly()
 		
@@ -53,14 +53,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func run(direction: float) -> void:
-	attack_type = AttackType.NONE
-	if direction > 0.0: #Right
-		animator.flip_h = false
-	else: #Left
-		animator.flip_h = true
-		
-	velocity.x = direction * SPEED
+func run() -> void:
+	attack_type = AttackType.NONE		
+	movement_stats.move()
 	player_state = PlayerState.RUNNING
 	animator.play("running")
 	
@@ -92,7 +87,7 @@ func _stop_smoothly() -> void:
 	if player_state != PlayerState.RUNNING:
 		return
 		
-	velocity.x = move_toward(velocity.x, 0, SPEED)
+	movement_stats.stop_smoothly()
 	_transite_to_idle()
 
 

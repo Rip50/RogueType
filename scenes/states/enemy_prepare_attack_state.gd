@@ -5,6 +5,7 @@ extends State
 
 signal attack_ready
 
+
 func _ready() -> void:
 	set_physics_process(false)
 	if attack_stats == null:

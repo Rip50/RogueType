@@ -5,7 +5,7 @@ enum AttackType { NONE, MELEE_1, MELEE_2 }
 
 @export var sight: RayCast2D
 @export var attack_stats: AttackStats
-@onready var timer: Timer = $Timer
+@onready var timer: Timer
 
 var _last_attack_type: AttackType = AttackType.NONE
 var view_is_clear := false
@@ -15,9 +15,11 @@ signal attack_completed
 
 
 func _ready() -> void:
+	timer = Timer.new()
 	timer.one_shot = true
 	timer.autostart = false
 	timer.timeout.connect(emit_signal.bind("attack_completed"))
+	add_child(timer)
 
 
 func enter_state() -> void:

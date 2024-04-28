@@ -229,8 +229,6 @@ attack_stats = NodePath("../../AttackStats")
 actor = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="Timer" type="Timer" parent="StateMachine/MiaMeleeAttackingState"]
-
 [node name="MiaIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "actor", "animated_sprite")]
 script = ExtResource("6_gmtid")
 sight = NodePath("../../Sight")
@@ -243,8 +241,11 @@ sight = NodePath("../../Sight")
 actor = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="MiaDefenseState" type="Node" parent="StateMachine"]
+[node name="MiaDefenseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_stats", "actor", "animated_sprite")]
 script = ExtResource("9_dc3pv")
+health_stats = NodePath("../../HealthStats")
+actor = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")

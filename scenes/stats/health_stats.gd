@@ -56,6 +56,14 @@ func set_deflecting(value: bool) -> void:
 	is_deflecting = value
 
 
+func try_start_deflecting() -> bool:
+	# Character can only deflect attacks only when he has capability
+	if (current_defense > 0 ):
+		set_deflecting(true)
+		return true
+	return false
+
+
 func take_damage(damage: Damage) -> void:
 	var passed_damage = _try_deflect(damage.Value)
 	_restart_defence_regeneration()

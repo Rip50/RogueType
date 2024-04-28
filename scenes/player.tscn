@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ct4np4nltn4rp"]
+[gd_scene load_steps=39 format=3 uid="uid://ct4np4nltn4rp"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
@@ -13,6 +13,12 @@
 [ext_resource type="Script" path="res://scenes/states/mia_iddle_state.gd" id="6_gmtid"]
 [ext_resource type="PackedScene" uid="uid://wti6ha7f70jd" path="res://scenes/item_pickup_zone.tscn" id="7_7edtu"]
 [ext_resource type="Script" path="res://scenes/states/mia_running_state.gd" id="8_gdkca"]
+[ext_resource type="Texture2D" uid="uid://b857yt8fb7tm1" path="res://art/Legacy-Fantasy/Character/Jumlp-All/Jump-All-Sheet.png" id="9_3yg04"]
+[ext_resource type="Script" path="res://scenes/states/mia_defense_state.gd" id="9_dc3pv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7auh"]
+atlas = ExtResource("9_3yg04")
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhy6l"]
 atlas = ExtResource("2_c78ph")
@@ -96,6 +102,14 @@ region = Rect2(560, 0, 80, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jblid"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7auh")
+}],
+"loop": false,
+"name": &"defence",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jhy6l")
@@ -226,9 +240,12 @@ sight = NodePath("../../Sight")
 actor = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
+[node name="MiaDefenseState" type="Node" parent="StateMachine"]
+script = ExtResource("9_dc3pv")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")
-animation = &"iddle"
+animation = &"defence"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")

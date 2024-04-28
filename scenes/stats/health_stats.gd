@@ -34,7 +34,7 @@ signal defense_changed(value: int)
 signal max_defense_changed(value: int)
 
 var defense_regeneration_timer: Timer
-
+var is_deflecting := false
 
 func _ready() -> void:
 	defense_regeneration_timer = Timer.new()
@@ -52,6 +52,10 @@ func _ready() -> void:
 	call_deferred("emit_signal", "max_defense_changed", max_defense)
 
 
+func set_deflecting(value: bool) -> void:
+	is_deflecting = value
+
+
 func take_damage(damage: Damage) -> void:
 	var passed_damage = _try_deflect(damage.Value)
 	_restart_defence_regeneration()
@@ -61,8 +65,11 @@ func take_damage(damage: Damage) -> void:
 		damage.Effect.apply_effect([self])
 
 
-func _try_deflect(damage_value: float) -> float:
+func _try_deflect(damage_value: float) -> float:		
 	var passed_damage := 0.0
+	
+	if !is_deflecting:
+		current_defense = 0
 	
 	current_defense -= damage_value
 	if current_defense < 0:

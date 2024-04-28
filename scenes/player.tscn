@@ -107,7 +107,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_r7auh")
 }],
 "loop": false,
-"name": &"defence",
+"name": &"defense",
 "speed": 5.0
 }, {
 "frames": [{
@@ -204,6 +204,9 @@ script = ExtResource("1_ngdcq")
 [node name="HealthStats" type="Node" parent="."]
 script = ExtResource("6_bwcow")
 current_health = 50
+max_defense = 30
+current_defense = 30
+defense_regeneration_per_sec = 5
 
 [node name="AttackStats" type="Node" parent="."]
 script = ExtResource("3_sjfsi")
@@ -245,7 +248,7 @@ script = ExtResource("9_dc3pv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jblid")
-animation = &"defence"
+animation = &"defense"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")

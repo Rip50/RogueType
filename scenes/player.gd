@@ -30,6 +30,7 @@ func _ready() -> void:
 	action_timer.one_shot = true
 	
 	health_stats.health_changed.connect(SignalBus.emit_player_health_changed)
+	health_stats.defense_changed.connect(SignalBus.emit_player_defense_changed)
 	
 	all_stats = [health_stats, movement_stats, attack_stats]
 	

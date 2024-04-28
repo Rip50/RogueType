@@ -22,6 +22,7 @@ extends Stats
 		defense_changed.emit(current_defense)
 		
 @export var defense_regeneration_per_sec := 1
+@export var defense_regeneration_cooldown_sec := 3
 
 signal hurt
 signal died
@@ -43,13 +44,17 @@ func _ready() -> void:
 	defense_regeneration_timer.timeout.connect(_regenerate_defense)
 	
 	current_defense = max_defense
-	# When entire scene is build we want to see actual health value
+	
+	# When entire scene is build we want to see actual values in UI
 	call_deferred("emit_signal", "health_changed", current_health)
+	call_deferred("emit_signal", "max_health_changed", max_health)
 	call_deferred("emit_signal", "defense_changed", current_defense)
+	call_deferred("emit_signal", "max_defense_changed", max_defense)
 
 
 func take_damage(damage: Damage) -> void:
 	var passed_damage = _try_deflect(damage.Value)
+	_restart_defence_regeneration()
 	_decrease_health(passed_damage)
 		
 	if damage.Effect != null:
@@ -82,8 +87,17 @@ func _decrease_health(value: float) -> void:
 		died.emit()
 
 
+func _restart_defence_regeneration() -> void:
+	defense_regeneration_timer.stop()
+	defense_regeneration_timer.start(defense_regeneration_cooldown_sec)
+
+
 func _regenerate_defense() -> void:
 	current_defense += defense_regeneration_per_sec
+	current_defense = min(max_defense, current_defense)
+	
+	if current_defense != max_defense:
+		defense_regeneration_timer.start(1)
 
 
 # Increases current health by the heal amount. Ensures health does not exceed max health.

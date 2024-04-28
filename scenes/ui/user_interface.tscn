@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq3e801w55dpd"]
+[gd_scene load_steps=6 format=3 uid="uid://bq3e801w55dpd"]
 
-[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/interface/heart.png" id="1_hbs40"]
+[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/Interface/heart.png" id="1_hbs40"]
 [ext_resource type="Script" path="res://scenes/ui/user_interface.gd" id="1_k7wxe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwtvn"]
+bg_color = Color(0.6, 0.6, 0.6, 0.368627)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2h07d"]
 bg_color = Color(0.0784314, 0.72549, 0, 1)
@@ -18,6 +19,13 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6uvns"]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0784314, 0, 0, 1)
+
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_k7wxe")
 
@@ -27,25 +35,47 @@ offset_top = 10.0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HealthbarContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HealthbarContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer"]
+[node name="Icon" type="TextureRect" parent="VBoxContainer/HealthbarContainer/CenterContainer"]
 layout_mode = 2
 texture = ExtResource("1_hbs40")
 stretch_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/HealthbarContainer"]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_pwtvn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2h07d")
+value = 100.0
+show_percentage = false
+
+[node name="DefenseBarContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/DefenseBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/DefenseBarContainer/CenterContainer"]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="DefenseBar" type="ProgressBar" parent="VBoxContainer/DefenseBarContainer"]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_pwtvn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6uvns")
 value = 100.0
 show_percentage = false

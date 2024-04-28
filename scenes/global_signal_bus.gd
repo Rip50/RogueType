@@ -4,6 +4,9 @@ extends Node
 signal player_died
 signal game_started
 signal player_health_changed(value: int)
+signal player_max_health_changed(value: int)
+signal player_defense_changed(value: int)
+signal player_max_defense_changed(value: int)
 signal player_gold_changed(value: int)
 signal enemy_died(enemy: Enemy)
 signal debug_info_toggled(state: bool)
@@ -19,6 +22,18 @@ func emit_game_started() -> void:
 
 func emit_player_health_changed(value: int) -> void:
 	player_health_changed.emit(value)
+
+
+func emit_player_max_health_changed(value: int) -> void:
+	player_max_health_changed.emit(value)
+
+
+func emit_player_defense_changed(value: int) -> void:
+	player_defense_changed.emit(value)
+
+
+func emit_player_max_defense_changed(value: int) -> void:
+	player_max_defense_changed.emit(value)
 
 
 func emit_player_gold_changed(value: int) -> void:

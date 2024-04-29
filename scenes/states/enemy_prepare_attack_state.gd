@@ -8,6 +8,8 @@ signal attack_ready
 
 func _ready() -> void:
 	set_physics_process(false)
+	attack_ready.connect(SignalBus.emit_enemy_attack_ready)
+	
 	if attack_stats == null:
 		push_warning("attack_stats are null in EnemyPrepareAttackState:" + str(self))
 	

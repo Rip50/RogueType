@@ -9,6 +9,7 @@ signal defense_completed
 func enter_state() -> void:
 	if !health_stats.try_start_deflecting():
 		defense_completed.emit()
+		return
 		
 	animated_sprite.play("defense")
 	await get_tree().create_timer(defense_time_sec).timeout

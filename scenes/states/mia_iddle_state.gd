@@ -4,12 +4,13 @@ extends State
 @export var sight: RayCast2D
 
 signal saw_enemy
-
+signal saw_enemy_attack_ready
 
 func _ready() -> void:
 	# We don't want to read collisions if state is inactive, so disable 
 	# physics process on start
 	set_physics_process(false)
+	SignalBus.enemy_attack_ready.connect(_emit_saw_enemy_attack_ready)
 
 
 func _physics_process(_delta: float) -> void:
@@ -22,3 +23,7 @@ func enter_state() -> void:
 	actor.stop_smoothly()
 	animated_sprite.play("iddle")
 	set_physics_process(true)
+
+
+func _emit_saw_enemy_attack_ready() -> void:
+	saw_enemy_attack_ready.emit()

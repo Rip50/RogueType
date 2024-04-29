@@ -18,11 +18,14 @@ var all_stats: Array[Stats]
 @onready var mia_melee_attacking_state: MiaMeleeAttackingState = $StateMachine/MiaMeleeAttackingState
 @onready var mia_iddle_state: MiaIddleState = $StateMachine/MiaIddleState
 @onready var mia_running_state: MiaRunningState = $StateMachine/MiaRunningState
+@onready var mia_defense_state = $StateMachine/MiaDefenseState
+
 
 # SM: Transitions
 @onready var mia_melee_attacking_transition := state_machine.change_state.bind(mia_melee_attacking_state)
 @onready var mia_iddle_transition := state_machine.change_state.bind(mia_iddle_state)
 @onready var mia_running_transition := state_machine.change_state.bind(mia_running_state)
+@onready var mia_defense_transition := state_machine.change_state.bind(mia_defense_state)
 
 
 func _ready() -> void:	
@@ -35,13 +38,17 @@ func _ready() -> void:
 	all_stats = [health_stats, movement_stats, attack_stats]
 	
 	mia_iddle_state.saw_enemy.connect(try_transit.bind(mia_melee_attacking_transition))
+	mia_iddle_state.saw_enemy_attack_ready.connect(mia_defense_transition)
 	mia_running_state.saw_enemy.connect(try_transit.bind(mia_melee_attacking_transition))
 	mia_melee_attacking_state.view_clear.connect(try_transit.bind(mia_running_transition))
+	mia_defense_state.defense_completed.connect(mia_iddle_transition)
+	
 	
 	action_timer.timeout.connect(mia_iddle_transition)
 
 
 func try_transit(transition: Callable) -> void:
+	# Transitions are disabled if there is no imput pulse
 	if action_timer.is_stopped():
 		return
 	

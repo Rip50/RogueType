@@ -63,10 +63,12 @@ anchor_character = NodePath("../../Player")
 [node name="HealingPotion" parent="." instance=ExtResource("10_dl7da")]
 position = Vector2(281, 15)
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "ground") instance=ExtResource("6_7sfao")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7sfao")]
 player = NodePath("../Player")
 enemies = Array[PackedScene]([ExtResource("6_8g5ty")])
-ground = NodePath("../Environment/Ground")
-vieport_offset = Vector2(50, -1)
+vieport_offset = Vector2(50, -100)
 
 [node name="ItemsSpawner" parent="." instance=ExtResource("11_s8sdf")]
+
+[node name="Zombie" parent="." instance=ExtResource("6_8g5ty")]
+position = Vector2(475, -185)

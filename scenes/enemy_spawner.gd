@@ -15,28 +15,33 @@ var ground_level := 0.0
 var viewport: Viewport
 
 func _ready() -> void:
-	timer.timeout.connect(_generate)
+	timer.timeout.connect(_spawn)
 	var shape = ground.get_node("CollisionShape2D").shape
 	ground_level = shape.distance * shape.normal.y + vieport_offset.y
 	viewport = get_viewport()
 	_start_timer_random_timeout()
 
 
-func _generate() -> void:
+func _spawn() -> void:
 	var enemy_idx = randi_range(0, enemies.size() - 1)
 	var enemy_scene = enemies[enemy_idx]
 	var position = _get_enemy_position(enemy_scene)
 	
 	var enemy_group_size = randi_range(1, maximum_enemies_in_group)
-	_generate_enemies(enemy_scene, position, enemy_group_size)
+	_spawn_enemies(enemy_scene, position, enemy_group_size)
 	
 	_start_timer_random_timeout()
 
-func _generate_enemies(enemy_scene: PackedScene, position: Vector2, count: int) -> void:
+func _spawn_enemies(enemy_scene: PackedScene, position: Vector2, count: int) -> void:
 	for i in range(count):
+		var enemy_position = position + Vector2(i * 30.0 + randf_range(5.0, 20.0), 0.0)
+		_spawn_enemy(enemy_scene, enemy_position)
+
+func _spawn_enemy(enemy_scene: PackedScene, position: Vector2) -> void:
 		var enemy = enemy_scene.instantiate()
-		enemy.position = position + Vector2(i * 30.0 + randf_range(5.0, 20.0), 0.0)
 		get_parent().add_child(enemy)
+		enemy.position = position
+
 
 func _get_enemy_position(enemy: PackedScene) -> Vector2:
 	var rect = viewport.get_visible_rect()

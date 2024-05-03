@@ -4,6 +4,7 @@ extends State
 @export var vision_cast: RayCast2D
 
 signal saw_player
+signal saw_enemy
 
 
 func enter_state() -> void:
@@ -14,6 +15,11 @@ func enter_state() -> void:
 
 func  _physics_process(_delta: float) -> void:
 	var colliding_object = vision_cast.get_collider() as Node2D
-	if colliding_object != null and colliding_object.is_in_group("Player"):
-		print_debug("Saw player")
+	if colliding_object == null:
+		return
+	
+	if colliding_object.is_in_group("Player"):
 		saw_player.emit()
+	elif colliding_object.is_in_group("Enemy"):
+		saw_enemy.emit()
+	

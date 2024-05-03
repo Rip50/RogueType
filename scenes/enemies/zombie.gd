@@ -22,6 +22,7 @@ var zombie_explosion_scene := preload("res://scenes/enemies/zombie_explosion.tsc
 @onready var enemy_iddle_transition := state_machine.change_state.bind(enemy_iddle_state)
 @onready var enemy_prepare_attack_transition := state_machine.change_state.bind(enemy_prepare_attack_state)
 @onready var enemy_attacking_transition := state_machine.change_state.bind(enemy_attacking_state)
+@onready var enemy_wandering_transition := state_machine.change_state.bind(enemy_wandering_state)
 
 
 func _ready() -> void:
@@ -31,9 +32,11 @@ func _ready() -> void:
 func _connect_signals() -> void:
 	# Connect SM states and transitions
 	enemy_wandering_state.saw_player.connect(enemy_iddle_transition)
-	enemy_iddle_state.enemy_ready.connect(enemy_prepare_attack_transition)
+	enemy_iddle_state.enemy_ready_to_attack.connect(enemy_prepare_attack_transition)
+	enemy_iddle_state.sight_clear.connect(enemy_wandering_transition)
 	enemy_prepare_attack_state.attack_ready.connect(enemy_attacking_transition)
 	enemy_attacking_state.attack_completed.connect(enemy_iddle_transition)
+	enemy_wandering_state.saw_enemy.connect(enemy_iddle_transition)
 
 	# Connect health stats
 	health_stats.hurt.connect(bleed)
@@ -42,9 +45,11 @@ func _connect_signals() -> void:
 
 func _disconnect_signals() -> void:
 	enemy_wandering_state.saw_player.disconnect(enemy_iddle_transition)
-	enemy_iddle_state.enemy_ready.disconnect(enemy_prepare_attack_transition)
+	enemy_iddle_state.enemy_ready_to_attack.disconnect(enemy_prepare_attack_transition)
+	enemy_iddle_state.sight_clear.disconnect(enemy_wandering_transition)
 	enemy_prepare_attack_state.attack_ready.disconnect(enemy_attacking_transition)
 	enemy_attacking_state.attack_completed.disconnect(enemy_iddle_transition)
+	enemy_wandering_state.saw_enemy.disconnect(enemy_iddle_transition)
 	
 	health_stats.hurt.disconnect(bleed)
 	health_stats.died.disconnect(die)

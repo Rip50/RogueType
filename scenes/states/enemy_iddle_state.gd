@@ -1,26 +1,39 @@
 class_name EnemyIddleState
 extends State
 
-@export var attack_stats: AttackStats
+@export var sight: RayCast2D
+@export var wait_time_sec: float
 
-signal enemy_ready
+var wait_timer: Timer
 
+signal enemy_ready_to_attack
+signal sight_clear
 
 func _ready() -> void:
-	if attack_stats == null:
-		push_warning("attack_stats are null in EnemyIddleState:" + str(self))
+	set_physics_process(false)
+	
+	wait_timer = Timer.new()
+	wait_timer.autostart = false
+	wait_timer.one_shot = true
+	add_child(wait_timer)
 
 
 func enter_state() -> void:
 	actor.stop()
 	animated_sprite.play("iddle")
 	
-	var cooldown_time = attack_stats.cooldown_time_sec
-	await get_tree().create_timer(cooldown_time).timeout
+	wait_timer.start(wait_time_sec)
+	await wait_timer.timeout
 	
-	enemy_ready.emit()
-	
-	
-func exit_state() -> void:
-	pass
+	set_physics_process(true)
 
+func _physics_process(delta: float) -> void:
+	var collider := sight.get_collider() as Node2D
+	
+	if !wait_timer.is_stopped():
+		return
+	if collider == null:
+		sight_clear.emit()
+	elif collider.is_in_group("Player"):
+		enemy_ready_to_attack.emit()
+	

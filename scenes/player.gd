@@ -1,10 +1,5 @@
-extends CharacterBody2D
-
-@onready var melee_attack_zone: MeleeAtackZone = $MeleeAttackZone
-
-@onready var health_stats: HealthStats = $HealthStats
-@onready var movement_stats: MovementStats = $MovementStats
-@onready var attack_stats: AttackStats = $AttackStats
+class_name Player
+extends Character
 
 @onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
 @onready var action_timer: Timer = $ActionTimer
@@ -64,8 +59,8 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("pick_up"):
 		item_pickup_zone.pickup()
-		
-	move_and_slide()
+	
+	super._physics_process(delta)
 
 
 func try_pickup_item(body: Node2D) -> bool:
@@ -78,19 +73,3 @@ func try_pickup_item(body: Node2D) -> bool:
 				result = true
 	
 	return result
-	
-
-func stop_smoothly() -> void:
-	movement_stats.stop_smoothly()
-	
-
-func stop() -> void:
-	movement_stats.stop()
-	
-	
-func move() -> void:
-	movement_stats.move()
-
-
-func attack_melee() -> void:
-	melee_attack_zone.attack()

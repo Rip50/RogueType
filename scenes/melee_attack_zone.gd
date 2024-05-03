@@ -10,9 +10,8 @@ extends Area2D
 func attack() -> void:
 	var bodies = get_overlapping_bodies()
 	for body in bodies:
-		var health_stats = body.find_child("HealthStats")
-		if health_stats != null:
-			health_stats.take_damage(attack_stats.get_melee_damage())
+		if body.has_method("take_damage"):
+			body.take_damage(attack_stats.get_melee_damage())
 
 
 func _ready() -> void:

@@ -10,7 +10,7 @@ signal saw_enemy
 func enter_state() -> void:
 	set_physics_process(true)
 	animated_sprite.play("walk")
-	actor.wander()
+	actor.move()
 
 
 func  _physics_process(_delta: float) -> void:

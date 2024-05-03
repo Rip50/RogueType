@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b77mv2ifdrhdw" path="res://scenes/ui/typing_interface.tscn" id="1_363sn"]
 [ext_resource type="PackedScene" uid="uid://bq3e801w55dpd" path="res://scenes/ui/user_interface.tscn" id="1_ocnpl"]
-[ext_resource type="PackedScene" uid="uid://ct4np4nltn4rp" path="res://scenes/player.tscn" id="2_g0ohw"]
+[ext_resource type="PackedScene" uid="uid://b3tgy38rb4a8p" path="res://scenes/player.tscn" id="2_g0ohw"]
 [ext_resource type="Texture2D" uid="uid://dtpetthfnm6ia" path="res://art/environment/sky_night.png" id="2_s387h"]
 [ext_resource type="Texture2D" uid="uid://dbvtixnfyjo5a" path="res://art/environment/horizon_mountains_night.png" id="3_m10qf"]
 [ext_resource type="Texture2D" uid="uid://6lb5d6qvciow" path="res://art/environment/background_forest_night.png" id="4_3n1dd"]

@@ -2,8 +2,6 @@ class_name Zombie
 extends Enemy
 
 @onready var label: Label = $Label
-@onready var health_stats: HealthStats = $HealthStats
-@onready var moving_stats: MovementStats = $MovementStats
 
 var blood_drop_scene := preload("res://scenes/blood_drop.tscn")
 var zombie_explosion_scene := preload("res://scenes/enemies/zombie_explosion.tscn")
@@ -72,11 +70,3 @@ func die() -> void:
 
 func assign_to_parent(node: Node2D) -> void:
 	get_parent().add_child(node)
-	
-
-func wander() -> void:
-	moving_stats.move()
-	
-	
-func stop() -> void:
-	moving_stats.stop()

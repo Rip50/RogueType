@@ -32,8 +32,9 @@ func attack_melee() -> void:
 
 func take_damage(damage: Damage) -> void:
 	if health_stats != null:
-		health_stats.take_damage(damage)
-	_flash()
+		if health_stats.take_damage(damage):
+			_flash()
+
 
 
 func _flash() -> void:

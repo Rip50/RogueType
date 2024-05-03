@@ -222,7 +222,7 @@ defense_regeneration_per_sec = 5
 
 [node name="AttackStats" type="Node" parent="."]
 script = ExtResource("3_sjfsi")
-basic_damage = 10.0
+basic_damage = 5.0
 cooldown_time_sec = 0.3
 
 [node name="MovementStats" type="Node" parent="." node_paths=PackedStringArray("character")]

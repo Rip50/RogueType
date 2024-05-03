@@ -64,13 +64,15 @@ func try_start_deflecting() -> bool:
 	return false
 
 
-func take_damage(damage: Damage) -> void:
+func take_damage(damage: Damage) -> bool:
 	var passed_damage = _try_deflect(damage.Value)
 	_restart_defence_regeneration()
 	_decrease_health(passed_damage)
 		
 	if damage.Effect != null:
 		damage.Effect.apply_effect([self])
+	
+	return passed_damage > 0
 
 
 func _try_deflect(damage_value: float) -> float:		

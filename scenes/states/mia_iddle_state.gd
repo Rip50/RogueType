@@ -26,4 +26,5 @@ func enter_state() -> void:
 
 
 func _emit_saw_enemy_attack_ready() -> void:
-	saw_enemy_attack_ready.emit()
+	if is_physics_processing():
+		saw_enemy_attack_ready.emit()

@@ -13,11 +13,6 @@ func enter_state() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var colliding_object = sight.get_collider() as Node2D
-	if colliding_object != null:
+	var collider = sight.get_collider() as Node2D
+	if collider != null and collider.is_in_group("Enemy"):
 		saw_enemy.emit()
-
-
-func exit_state() -> void:
-	# Potentially can cause an issue
-	set_physics_process(false)

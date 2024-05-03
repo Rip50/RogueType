@@ -43,7 +43,6 @@ func _ready() -> void:
 	mia_melee_attacking_state.view_clear.connect(try_transit.bind(mia_running_transition))
 	mia_defense_state.defense_completed.connect(mia_iddle_transition)
 	
-	
 	action_timer.timeout.connect(mia_iddle_transition)
 
 
@@ -83,6 +82,10 @@ func try_pickup_item(body: Node2D) -> bool:
 
 func stop_smoothly() -> void:
 	movement_stats.stop_smoothly()
+	
+
+func stop() -> void:
+	movement_stats.stop()
 	
 	
 func move() -> void:

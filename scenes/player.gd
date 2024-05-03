@@ -3,8 +3,7 @@ extends Character
 
 @onready var item_pickup_zone: ItemPickupZone = $ItemPickupZone
 @onready var action_timer: Timer = $ActionTimer
-
-var all_stats: Array[Stats]
+@onready var inventory: Inventory = $Inventory
 
 # State machine
 @onready var state_machine: StateMachine = $StateMachine
@@ -15,13 +14,13 @@ var all_stats: Array[Stats]
 @onready var mia_running_state: MiaRunningState = $StateMachine/MiaRunningState
 @onready var mia_defense_state = $StateMachine/MiaDefenseState
 
-
 # SM: Transitions
 @onready var mia_melee_attacking_transition := state_machine.change_state.bind(mia_melee_attacking_state)
 @onready var mia_iddle_transition := state_machine.change_state.bind(mia_iddle_state)
 @onready var mia_running_transition := state_machine.change_state.bind(mia_running_state)
 @onready var mia_defense_transition := state_machine.change_state.bind(mia_defense_state)
 
+var all_stats: Array[Stats]
 
 func _ready() -> void:	
 	action_timer.autostart = false
@@ -63,9 +62,8 @@ func _physics_process(delta):
 	super._physics_process(delta)
 
 
-func try_pickup_item(body: Node2D) -> bool:
+func try_apply_item(item: Item) -> bool:
 	var result := false
-	var item = body as Item
 
 	if item != null:
 		for stat in all_stats:

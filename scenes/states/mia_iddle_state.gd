@@ -26,5 +26,6 @@ func enter_state() -> void:
 
 
 func _emit_saw_enemy_attack_ready() -> void:
+	# Workaround: blocking should work only from idle state
 	if is_physics_processing():
 		saw_enemy_attack_ready.emit()

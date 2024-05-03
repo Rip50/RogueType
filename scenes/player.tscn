@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b3tgy38rb4a8p"]
+[gd_scene load_steps=41 format=3 uid="uid://b3tgy38rb4a8p"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
@@ -15,6 +15,13 @@
 [ext_resource type="Script" path="res://scenes/states/mia_running_state.gd" id="8_gdkca"]
 [ext_resource type="Texture2D" uid="uid://b857yt8fb7tm1" path="res://art/Legacy-Fantasy/Character/Jumlp-All/Jump-All-Sheet.png" id="9_3yg04"]
 [ext_resource type="Script" path="res://scenes/states/mia_defense_state.gd" id="9_dc3pv"]
+[ext_resource type="Shader" uid="uid://b424xgnciqpij" path="res://shaders/flash.tres" id="10_lmfyd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d10ta"]
+resource_local_to_scene = true
+shader = ExtResource("10_lmfyd")
+shader_parameter/Enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r7auh"]
 atlas = ExtResource("9_3yg04")
@@ -194,7 +201,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yemya"]
 height = 48.0
 
-[node name="Mia" type="CharacterBody2D" node_paths=PackedStringArray("attack_stats", "health_stats", "movement_stats", "melee_attack_zone") groups=["Player"]]
+[node name="Mia" type="CharacterBody2D" node_paths=PackedStringArray("attack_stats", "health_stats", "movement_stats", "melee_attack_zone", "animated_sprite") groups=["Player"]]
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
@@ -204,6 +211,7 @@ attack_stats = NodePath("AttackStats")
 health_stats = NodePath("HealthStats")
 movement_stats = NodePath("MovementStats")
 melee_attack_zone = NodePath("MeleeAttackZone")
+animated_sprite = NodePath("AnimatedSprite2D")
 
 [node name="HealthStats" type="Node" parent="."]
 script = ExtResource("6_bwcow")
@@ -253,6 +261,7 @@ actor = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_d10ta")
 sprite_frames = SubResource("SpriteFrames_jblid")
 animation = &"defense"
 

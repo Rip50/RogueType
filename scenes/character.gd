@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var movement_stats: MovementStats
 
 @export var melee_attack_zone: MeleeAtackZone
+@export var animated_sprite: AnimatedSprite2D
 
 var GRAVITY = 500
 
@@ -32,7 +33,16 @@ func attack_melee() -> void:
 func take_damage(damage: Damage) -> void:
 	if health_stats != null:
 		health_stats.take_damage(damage)
+	_flash()
+
+
+func _flash() -> void:
+	var flash_func = func(enabled: bool):
+		animated_sprite.material.set_shader_parameter("Enabled", enabled);
 		
+	var tween = create_tween()
+	tween.tween_method(flash_func, false, true, 0.05)
+	tween.tween_method(flash_func, true, false, 0.05)
 
 
 func _physics_process(_delta: float) -> void:

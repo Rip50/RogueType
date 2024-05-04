@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq3e801w55dpd"]
+[gd_scene load_steps=9 format=3 uid="uid://bq3e801w55dpd"]
 
 [ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/interface/heart.png" id="1_hbs40"]
 [ext_resource type="Script" path="res://scenes/ui/user_interface.gd" id="1_k7wxe"]
+[ext_resource type="Texture2D" uid="uid://ct57vagerg14b" path="res://art/interface/shield.png" id="3_c5mup"]
+[ext_resource type="Texture2D" uid="uid://cwrfbhdfffr6y" path="res://art/interface/coin.png" id="4_b2nd6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwtvn"]
 bg_color = Color(0.6, 0.6, 0.6, 0.368627)
@@ -26,18 +28,20 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.0784314, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_i4m7p"]
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_k7wxe")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 136.0
+offset_bottom = 95.0
 
 [node name="HealthbarContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HealthbarContainer"]
 layout_mode = 2
@@ -52,15 +56,17 @@ stretch_mode = 2
 [node name="HealthBar" type="ProgressBar" parent="VBoxContainer/HealthbarContainer"]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_pwtvn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2h07d")
-value = 100.0
+max_value = 50.0
+value = 50.0
 show_percentage = false
 
 [node name="DefenseBarContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/DefenseBarContainer"]
 layout_mode = 2
@@ -69,6 +75,7 @@ size_flags_vertical = 4
 
 [node name="Icon" type="TextureRect" parent="VBoxContainer/DefenseBarContainer/CenterContainer"]
 layout_mode = 2
+texture = ExtResource("3_c5mup")
 stretch_mode = 2
 
 [node name="DefenseBar" type="ProgressBar" parent="VBoxContainer/DefenseBarContainer"]
@@ -79,3 +86,21 @@ theme_override_styles/background = SubResource("StyleBoxFlat_pwtvn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6uvns")
 value = 100.0
 show_percentage = false
+
+[node name="GoldContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/GoldContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/GoldContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("4_b2nd6")
+stretch_mode = 2
+
+[node name="GoldCounter" type="Label" parent="VBoxContainer/GoldContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_i4m7p")

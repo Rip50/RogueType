@@ -1,19 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://bc5cd83ugexa6"]
 
-[ext_resource type="Script" path="res://scenes/items/healing_potion.gd" id="1_b7uti"]
-[ext_resource type="Texture2D" uid="uid://crapc042i2u3b" path="res://art/items/gold.png" id="2_xcon8"]
+[ext_resource type="Script" path="res://scenes/items/coin.gd" id="1_i4apt"]
+[ext_resource type="Texture2D" uid="uid://cwrfbhdfffr6y" path="res://art/items/coin.png" id="2_64gvk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n87te"]
-size = Vector2(20, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_erg45"]
 
-[node name="Gold" type="RigidBody2D" groups=["Item"]]
+[node name="Coin" type="RigidBody2D" groups=["Item"]]
 collision_layer = 16
-script = ExtResource("1_b7uti")
+mass = 0.05
+script = ExtResource("1_i4apt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_n87te")
+shape = SubResource("CircleShape2D_erg45")
 
-[node name="Gold" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_xcon8")
+[node name="Coin" type="Sprite2D" parent="."]
+texture = ExtResource("2_64gvk")

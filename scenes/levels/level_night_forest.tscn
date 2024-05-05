@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6ok5pas6jxec"]
+[gd_scene load_steps=13 format=3 uid="uid://c6ok5pas6jxec"]
 
 [ext_resource type="PackedScene" uid="uid://b77mv2ifdrhdw" path="res://scenes/ui/typing_interface.tscn" id="1_363sn"]
 [ext_resource type="PackedScene" uid="uid://bq3e801w55dpd" path="res://scenes/ui/user_interface.tscn" id="1_ocnpl"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://vu2yk3702nqa" path="res://scenes/enemies/zombie.tscn" id="6_8g5ty"]
 [ext_resource type="PackedScene" uid="uid://cf2uo2vqacma" path="res://scenes/items/healing_potion.tscn" id="10_dl7da"]
 [ext_resource type="PackedScene" uid="uid://bh57pkm84isxg" path="res://scenes/items_spawner.tscn" id="11_s8sdf"]
+[ext_resource type="PackedScene" uid="uid://bc5cd83ugexa6" path="res://scenes/items/coin.tscn" id="12_tfh5s"]
 
 [node name="Level_NightForest" type="Node2D"]
 
@@ -60,9 +61,6 @@ texture = ExtResource("4_3n1dd")
 [node name="Ground" parent="Environment" node_paths=PackedStringArray("anchor_character") instance=ExtResource("6_7l1ns")]
 anchor_character = NodePath("../../Player")
 
-[node name="HealingPotion" parent="." instance=ExtResource("10_dl7da")]
-position = Vector2(281, 15)
-
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_7sfao")]
 player = NodePath("../Player")
 enemies = Array[PackedScene]([ExtResource("6_8g5ty")])
@@ -72,3 +70,9 @@ vieport_offset = Vector2(50, -100)
 
 [node name="Zombie" parent="." instance=ExtResource("6_8g5ty")]
 position = Vector2(475, -185)
+
+[node name="Coin" parent="." instance=ExtResource("12_tfh5s")]
+position = Vector2(345, -36)
+
+[node name="HealingPotion" parent="." instance=ExtResource("10_dl7da")]
+position = Vector2(222, -56)

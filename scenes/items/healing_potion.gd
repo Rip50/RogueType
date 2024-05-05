@@ -4,6 +4,6 @@ extends Item
 @export var effect : HealingEffect
 
 
-func try_use(character: Character) -> bool:
-	effect.apply_effect(character.get_all_stats(), character)
+func try_use(player: Player) -> bool:
+	effect.apply_effect(player.get_all_stats(), player)
 	return true

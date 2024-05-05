@@ -1,4 +1,4 @@
-class_name Gold
+class_name Coin
 extends Item
 
 @export var count: int = 1

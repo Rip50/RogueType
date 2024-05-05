@@ -20,7 +20,6 @@ extends Character
 @onready var mia_running_transition := state_machine.change_state.bind(mia_running_state)
 @onready var mia_defense_transition := state_machine.change_state.bind(mia_defense_state)
 
-var all_stats: Array[Stats]
 
 func _ready() -> void:	
 	action_timer.autostart = false
@@ -62,12 +61,11 @@ func _physics_process(delta):
 	super._physics_process(delta)
 
 
-func try_apply_item(item: Item) -> bool:
+func try_use_item(item: Item) -> bool:
 	var result := false
 
 	if item != null:
-		for stat in all_stats:
-			if item.try_apply_for(stat):
-				result = true
+		if item.try_use(self):
+			result = true
 	
 	return result

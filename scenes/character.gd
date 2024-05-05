@@ -5,10 +5,13 @@ extends CharacterBody2D
 @export var health_stats: HealthStats
 @export var movement_stats: MovementStats
 
+var all_stats : Array[Stats]
+
 @export var melee_attack_zone: MeleeAtackZone
 @export var animated_sprite: AnimatedSprite2D
 
-var GRAVITY = 500
+var GRAVITY := 500
+
 
 func stop_smoothly() -> void:
 	if movement_stats != null:
@@ -34,6 +37,10 @@ func take_damage(damage: Damage) -> void:
 	if health_stats != null:
 		if health_stats.take_damage(damage):
 			_flash()
+
+
+func get_all_stats() -> Array[Stats]:
+	return all_stats
 
 
 func _flash() -> void:

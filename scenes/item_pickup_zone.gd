@@ -15,5 +15,5 @@ func pickup() -> void:
 	
 	
 func _try_pickup_item(body: Node2D) -> void:
-	if Player.try_apply_item(body as Item):
+	if Player.try_use_item(body as Item):
 		body.queue_free()

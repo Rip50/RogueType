@@ -1,10 +1,10 @@
 class_name Damage
-extends Node
+extends Resource
 
-var Value: float
-var Effect: AttackingEffect = null
+var value: float
+var effect: Effect = null
 
 
-func _init(damage_value: float, effect: AttackingEffect = null) -> void:
-	Value = damage_value
-	effect = effect
+func _init(damage_value: float, effect: Effect = null) -> void:
+	self.value = damage_value
+	self.effect = effect

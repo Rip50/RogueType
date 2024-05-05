@@ -274,6 +274,7 @@ position = Vector2(26.5, 0)
 attack_stats = NodePath("../AttackStats")
 
 [node name="ItemPickupZone" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("7_7edtu")]
+position = Vector2(0, 13.5)
 monitoring = true
 Player = NodePath("..")
 

@@ -18,9 +18,13 @@ func _set_initial_state() -> void:
 func change_state(new_state: State) -> void:
 	if state is State:
 		state.exit_state()
+		state.is_active = false
+		
 	state = new_state
 	if debug_label != null:
 		debug_label.text = str(state.name)
+	
+	state.is_active = true
 	state.enter_state()
 
 

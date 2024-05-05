@@ -36,7 +36,6 @@ func take_damage(damage: Damage) -> void:
 			_flash()
 
 
-
 func _flash() -> void:
 	var flash_func = func(enabled: bool):
 		animated_sprite.material.set_shader_parameter("Enabled", enabled);

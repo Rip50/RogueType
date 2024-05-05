@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_i8rfx"]
 script = ExtResource("2_1txcq")
-healing_amount = 10
+healing_amount = 50
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yr425"]
 radius = 16.0

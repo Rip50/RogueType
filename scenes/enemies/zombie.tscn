@@ -20,7 +20,7 @@
 resource_local_to_scene = true
 script = ExtResource("3_egy5t")
 item = ExtResource("2_elptb")
-probability = 5.0
+probability = 15.0
 count_randomization_type = 0
 min_amount = 1
 max_amount = 1
@@ -32,11 +32,11 @@ resource_local_to_scene = true
 script = ExtResource("3_egy5t")
 item = ExtResource("4_efo5b")
 probability = 100.0
-count_randomization_type = 1
+count_randomization_type = 0
 min_amount = 1
-max_amount = 10
+max_amount = 5
 mean_amount = 2
-amount_deviation = 3
+amount_deviation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3007r"]
 resource_local_to_scene = true

@@ -14,3 +14,7 @@ func enter_state() -> void:
 	animated_sprite.play("defense")
 	await get_tree().create_timer(defense_time_sec).timeout
 	defense_completed.emit()
+	
+
+func exit_state() -> void:
+	health_stats.set_deflecting(false)

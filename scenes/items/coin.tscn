@@ -7,7 +7,6 @@
 
 [node name="Coin" type="RigidBody2D" groups=["Item"]]
 collision_layer = 16
-mass = 0.05
 script = ExtResource("1_i4apt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

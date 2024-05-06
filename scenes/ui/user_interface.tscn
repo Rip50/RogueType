@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bq3e801w55dpd"]
 
-[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/Interface/heart.png" id="1_hbs40"]
+[ext_resource type="Texture2D" uid="uid://rajhyjl53v77" path="res://art/interface/heart.png" id="1_hbs40"]
 [ext_resource type="Script" path="res://scenes/ui/user_interface.gd" id="1_k7wxe"]
-[ext_resource type="Texture2D" uid="uid://ct57vagerg14b" path="res://art/Interface/shield.png" id="3_c5mup"]
-[ext_resource type="Texture2D" uid="uid://bvvbqfrwbpeci" path="res://art/Interface/coin.png" id="4_b2nd6"]
+[ext_resource type="Texture2D" uid="uid://ct57vagerg14b" path="res://art/interface/shield.png" id="3_c5mup"]
+[ext_resource type="Texture2D" uid="uid://bvvbqfrwbpeci" path="res://art/interface/coin.png" id="4_b2nd6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwtvn"]
 bg_color = Color(0.6, 0.6, 0.6, 0.368627)

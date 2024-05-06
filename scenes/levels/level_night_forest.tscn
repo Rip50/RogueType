@@ -68,9 +68,6 @@ vieport_offset = Vector2(50, -100)
 
 [node name="ItemsSpawner" parent="." instance=ExtResource("11_s8sdf")]
 
-[node name="Zombie" parent="." instance=ExtResource("6_8g5ty")]
-position = Vector2(475, -185)
-
 [node name="HealingPotion" parent="." instance=ExtResource("10_dl7da")]
 position = Vector2(197, -199)
 

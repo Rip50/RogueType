@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://scenes/global_signal_bus.gd"
-GameDebugController="*res://scenes/game_debug_controller.gd"
+SignalBus="*res://scenes/globals/global_signal_bus.gd"
+GameDebugController="*res://scenes/globals/game_debug_controller.gd"
+TypingController="*res://scenes/globals/typing_controller.gd"
 
 [display]
 

@@ -273,9 +273,10 @@ shape = SubResource("CapsuleShape2D_yemya")
 position = Vector2(26.5, 0)
 attack_stats = NodePath("../AttackStats")
 
-[node name="ItemPickupZone" parent="." instance=ExtResource("7_7edtu")]
+[node name="ItemPickupZone" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_7edtu")]
 position = Vector2(0, 13.5)
 monitoring = true
+player = NodePath("..")
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false

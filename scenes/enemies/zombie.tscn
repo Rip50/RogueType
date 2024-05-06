@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://scenes/states/enemy_wandering_state.gd" id="3_873i1"]
 [ext_resource type="Script" path="res://scenes/enemies/scripts/drop_data.gd" id="3_egy5t"]
 [ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="4_2epim"]
+[ext_resource type="PackedScene" uid="uid://bc5cd83ugexa6" path="res://scenes/items/coin.tscn" id="4_3yg3p"]
 [ext_resource type="Script" path="res://scenes/states/enemy_attacking_state.gd" id="4_4q7ti"]
-[ext_resource type="PackedScene" uid="uid://bc5cd83ugexa6" path="res://scenes/items/coin.tscn" id="4_efo5b"]
 [ext_resource type="Script" path="res://scenes/states/enemy_prepare_attack_state.gd" id="4_mpwxv"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_tx2j2"]
 [ext_resource type="Script" path="res://scenes/state_machine.gd" id="5_yt1yb"]
@@ -30,7 +30,7 @@ amount_deviation = 1
 [sub_resource type="Resource" id="Resource_em1ro"]
 resource_local_to_scene = true
 script = ExtResource("3_egy5t")
-item = ExtResource("4_efo5b")
+item = ExtResource("4_3yg3p")
 probability = 100.0
 count_randomization_type = 0
 min_amount = 1

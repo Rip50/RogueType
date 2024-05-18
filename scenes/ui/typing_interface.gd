@@ -3,10 +3,6 @@ extends CanvasLayer
 @onready var text_input: LineEdit = %TextInput
 @onready var displayed_text_label: RichTextLabel = %DisplayedTextLabel
 
-signal correct
-signal error
-signal erase
-
 #[color=green]capstan[/color] [color=red]c[/color]apstan ahoy treasure landlubber keelhaul avast ahoy avast 
 #seadog wench swab scurvy avast buccaneer cutlass landlubber plank treasure cutlass doubloon cannon seadog scallywag yo-ho-ho maroon 
 #booty yo-ho-ho matey privateer poop deck booty booty avast booty seadog doubloon grog buccaneer matey grog matey avast seadog 
@@ -46,6 +42,6 @@ func _process_player_input(input_text: String) -> void:
 					
 		var last_char_idx = input_text.length() - 1
 		if input_text[last_char_idx] == text[last_char_idx]:
-			correct.emit()
+			SignalBus.emit_type_correct()
 		else:
-			error.emit()
+			SignalBus.emit_type_error()

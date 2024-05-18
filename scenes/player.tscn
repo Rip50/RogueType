@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b3tgy38rb4a8p"]
+[gd_scene load_steps=45 format=3 uid="uid://b3tgy38rb4a8p"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
@@ -7,15 +7,11 @@
 [ext_resource type="Script" path="res://scenes/stats/attack_stats.gd" id="3_sjfsi"]
 [ext_resource type="Script" path="res://scenes/stats/movement_stats.gd" id="4_qtbgm"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://scenes/melee_attack_zone.tscn" id="5_lxc2d"]
-[ext_resource type="Script" path="res://scenes/state_machine.gd" id="5_wfn3w"]
 [ext_resource type="Script" path="res://scenes/stats/health_stats.gd" id="6_bwcow"]
-[ext_resource type="Script" path="res://scenes/states/mia_melee_attacking_state.gd" id="6_d3b6g"]
-[ext_resource type="Script" path="res://scenes/states/mia_iddle_state.gd" id="6_gmtid"]
 [ext_resource type="PackedScene" uid="uid://wti6ha7f70jd" path="res://scenes/item_pickup_zone.tscn" id="7_7edtu"]
-[ext_resource type="Script" path="res://scenes/states/mia_running_state.gd" id="8_gdkca"]
 [ext_resource type="Texture2D" uid="uid://b857yt8fb7tm1" path="res://art/Legacy-Fantasy/Character/Jumlp-All/Jump-All-Sheet.png" id="9_3yg04"]
-[ext_resource type="Script" path="res://scenes/states/mia_defense_state.gd" id="9_dc3pv"]
 [ext_resource type="Shader" uid="uid://b424xgnciqpij" path="res://shaders/flash.tres" id="10_lmfyd"]
+[ext_resource type="Script" path="res://scenes/state_machine/player_state_machine.gd" id="13_dq65y"]
 [ext_resource type="Script" path="res://scenes/inventory.gd" id="17_g0vjp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d10ta"]
@@ -133,7 +129,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"iddle",
-"speed": 3.0
+"speed": 100.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -199,6 +195,183 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_jngtx"]
+resource_name = "iddle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"iddle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_0auao"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"iddle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_im87b"]
+resource_name = "deffense"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"defense"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pmq3g"]
+resource_name = "melee_1"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"melee_1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_it0an"]
+resource_name = "melee_2"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"melee_2"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_x61a8"]
+resource_name = "running"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"running"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yjvsg"]
+_data = {
+"RESET": SubResource("Animation_0auao"),
+"deffense": SubResource("Animation_im87b"),
+"iddle": SubResource("Animation_jngtx"),
+"melee_1": SubResource("Animation_pmq3g"),
+"melee_2": SubResource("Animation_it0an"),
+"running": SubResource("Animation_x61a8")
+}
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yemya"]
 height = 48.0
 
@@ -231,40 +404,15 @@ script = ExtResource("4_qtbgm")
 character = NodePath("..")
 max_speed = 300.0
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("state", "debug_label")]
-script = ExtResource("5_wfn3w")
-state = NodePath("MiaIddleState")
-debug_label = NodePath("../DebugLabel")
-
-[node name="MiaMeleeAttackingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "attack_stats", "actor", "animated_sprite")]
-script = ExtResource("6_d3b6g")
-sight = NodePath("../../Sight")
-attack_stats = NodePath("../../AttackStats")
-actor = NodePath("../..")
-animated_sprite = NodePath("../../AnimatedSprite2D")
-
-[node name="MiaIddleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "actor", "animated_sprite")]
-script = ExtResource("6_gmtid")
-sight = NodePath("../../Sight")
-actor = NodePath("../..")
-animated_sprite = NodePath("../../AnimatedSprite2D")
-
-[node name="MiaRunningState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sight", "actor", "animated_sprite")]
-script = ExtResource("8_gdkca")
-sight = NodePath("../../Sight")
-actor = NodePath("../..")
-animated_sprite = NodePath("../../AnimatedSprite2D")
-
-[node name="MiaDefenseState" type="Node" parent="StateMachine" node_paths=PackedStringArray("health_stats", "actor", "animated_sprite")]
-script = ExtResource("9_dc3pv")
-health_stats = NodePath("../../HealthStats")
-actor = NodePath("../..")
-animated_sprite = NodePath("../../AnimatedSprite2D")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_d10ta")
 sprite_frames = SubResource("SpriteFrames_jblid")
-animation = &"defense"
+animation = &"iddle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_yjvsg")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_yemya")
@@ -294,3 +442,6 @@ collision_mask = 12
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("17_g0vjp")
+
+[node name="PlayerStateMachine" type="Node" parent="."]
+script = ExtResource("13_dq65y")

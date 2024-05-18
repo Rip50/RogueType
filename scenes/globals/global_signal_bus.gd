@@ -9,6 +9,11 @@ signal player_defense_changed(value: int)
 signal player_max_defense_changed(value: int)
 signal player_gold_changed(value: int)
 
+#Typing signals
+signal type_correct
+signal type_error
+signal type_erase
+
 # Enemy signals
 signal enemy_died(enemy: Enemy)
 signal enemy_attack_ready
@@ -56,3 +61,15 @@ func emit_debug_info_toggled(state: bool) -> void:
 
 func emit_enemy_attack_ready() -> void:
 	enemy_attack_ready.emit()
+	
+
+func emit_type_correct() -> void:
+	type_correct.emit()
+
+
+func emit_type_error() -> void:
+	type_error.emit()
+
+
+func emit_type_erase() -> void:
+	type_erase.emit()

@@ -8,7 +8,7 @@ extends Character
 
 
 func _ready() -> void:	
-	player_state_machine.initialize(self)
+	player_state_machine.initialize(self, %AnimationPlayer)
 	
 	action_timer.autostart = false
 	action_timer.one_shot = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b3tgy38rb4a8p"]
+[gd_scene load_steps=48 format=3 uid="uid://b3tgy38rb4a8p"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_ngdcq"]
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://b857yt8fb7tm1" path="res://art/Legacy-Fantasy/Character/Jumlp-All/Jump-All-Sheet.png" id="9_3yg04"]
 [ext_resource type="Shader" uid="uid://b424xgnciqpij" path="res://shaders/flash.tres" id="10_lmfyd"]
 [ext_resource type="Script" path="res://scenes/state_machine/player_state_machine.gd" id="13_dq65y"]
+[ext_resource type="Script" path="res://scenes/state_machine/iddle_state.gd" id="14_o03i1"]
+[ext_resource type="Script" path="res://scenes/state_machine/running_state.gd" id="15_adgry"]
+[ext_resource type="Script" path="res://scenes/state_machine/attacking_state.gd" id="16_asfev"]
 [ext_resource type="Script" path="res://scenes/inventory.gd" id="17_g0vjp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d10ta"]
@@ -410,6 +413,7 @@ sprite_frames = SubResource("SpriteFrames_jblid")
 animation = &"iddle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_yjvsg")
 }
@@ -445,3 +449,22 @@ script = ExtResource("17_g0vjp")
 
 [node name="PlayerStateMachine" type="Node" parent="."]
 script = ExtResource("13_dq65y")
+
+[node name="IddleState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("sight", "attacking_state", "running_state")]
+script = ExtResource("14_o03i1")
+sight = NodePath("../../Sight")
+attacking_state = NodePath("../AttackingState")
+running_state = NodePath("../RunningState")
+
+[node name="RunningState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("sight", "attacking_state", "iddle_state")]
+script = ExtResource("15_adgry")
+sight = NodePath("../../Sight")
+attacking_state = NodePath("../AttackingState")
+iddle_state = NodePath("../IddleState")
+
+[node name="AttackingState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("sight", "attack_stats", "iddle_state", "running_state")]
+script = ExtResource("16_asfev")
+sight = NodePath("../../Sight")
+attack_stats = NodePath("../../AttackStats")
+iddle_state = NodePath("../IddleState")
+running_state = NodePath("../RunningState")

@@ -10,12 +10,6 @@ static var speed: float = 0.0:
 var is_active := false
 
 
-func _ready() -> void:
-	# will nt work since _ready is not called for the children
-	SignalBus.type_correct.connect(func():speed += 10.0)
-	SignalBus.type_error.connect(func():speed -= 20.0)
-
-
 func enter() -> void:
 	pass
 	

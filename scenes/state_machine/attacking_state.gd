@@ -48,7 +48,7 @@ func _begin_attacking() -> void:
 	animator.play("melee_1")
 
 
-func attack() -> void:
+func attack(_animation_name) -> void:
 	if view_is_clear:
 		attack_timer.start(attack_stats.cooldown_time_sec)
 		return

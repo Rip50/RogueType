@@ -11,6 +11,7 @@ func _ready() -> void:
 	SignalBus.player_defense_changed.connect(_update_defensebar_value)
 	SignalBus.player_max_defense_changed.connect(_update_defensebar_max_value)
 	SignalBus.player_gold_changed.connect(_update_gold_counter)
+	SignalBus.pulse_changed.connect(_update_debug_pulse_text)
 
 
 func _update_healthbar_value(value: int) -> void:
@@ -31,3 +32,6 @@ func _update_defensebar_max_value(value: int) -> void:
 
 func _update_gold_counter(value: int) -> void:
 	gold_counter.text = str(value)
+
+func _update_debug_pulse_text(value: float) -> void:
+	%PulseText.text = str(value)

@@ -1,6 +1,7 @@
 class_name RunningState
 extends State2
 
+@export var movement_stats: MovementStats
 @export var sight: RayCast2D
 @export var attacking_state: AttackingState
 @export var iddle_state: IddleState
@@ -9,7 +10,6 @@ extends State2
 func enter() -> void:
 	set_physics_process(true)
 	animator.play("running")
-	player.move()
 
 
 func physics(_delta: float) -> State2:
@@ -19,5 +19,7 @@ func physics(_delta: float) -> State2:
 	var collider = sight.get_collider() as Node2D
 	if collider != null and collider.is_in_group("Enemy"):
 		return attacking_state
+	
+	player.velocity = movement_stats.get_velocity()
 	
 	return self

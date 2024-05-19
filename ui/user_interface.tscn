@@ -103,3 +103,17 @@ stretch_mode = 2
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_i4m7p")
+
+[node name="DebugContainer" type="GridContainer" parent="."]
+offset_left = 1016.0
+offset_right = 1152.0
+offset_bottom = 95.0
+columns = 2
+
+[node name="Label" type="Label" parent="DebugContainer"]
+layout_mode = 2
+text = "Pulse:"
+
+[node name="PulseText" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2

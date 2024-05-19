@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cb8rbuihiuco6" path="res://art/Legacy-Fantasy/Character/Idle/Idle-Sheet.png" id="2_c78ph"]
 [ext_resource type="Texture2D" uid="uid://0f4ckddvmngd" path="res://art/Legacy-Fantasy/Character/Attack-01/Attack-01-Sheet.png" id="3_12307"]
 [ext_resource type="Texture2D" uid="uid://b5njtoqq7nv6h" path="res://art/Legacy-Fantasy/Character/Run/Run-Sheet.png" id="3_e2k0y"]
-[ext_resource type="Script" path="res://stats/attack_stats.gd" id="3_sjfsi"]
-[ext_resource type="Script" path="res://stats/movement_stats.gd" id="4_qtbgm"]
+[ext_resource type="Script" path="res://characters/stats/attack_stats.gd" id="3_sjfsi"]
+[ext_resource type="Script" path="res://characters/stats/movement_stats.gd" id="4_qtbgm"]
 [ext_resource type="PackedScene" uid="uid://10cog181cq5u" path="res://characters/melee_attack_zone.tscn" id="5_lxc2d"]
-[ext_resource type="Script" path="res://stats/health_stats.gd" id="6_bwcow"]
+[ext_resource type="Script" path="res://characters/stats/health_stats.gd" id="6_bwcow"]
 [ext_resource type="PackedScene" uid="uid://wti6ha7f70jd" path="res://characters/player/item_pickup_zone.tscn" id="7_7edtu"]
 [ext_resource type="Texture2D" uid="uid://b857yt8fb7tm1" path="res://art/Legacy-Fantasy/Character/Jumlp-All/Jump-All-Sheet.png" id="9_3yg04"]
 [ext_resource type="Shader" uid="uid://b424xgnciqpij" path="res://shaders/flash.tres" id="10_lmfyd"]
@@ -456,8 +456,9 @@ sight = NodePath("../../Sight")
 attacking_state = NodePath("../AttackingState")
 running_state = NodePath("../RunningState")
 
-[node name="RunningState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("sight", "attacking_state", "iddle_state")]
+[node name="RunningState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("movement_stats", "sight", "attacking_state", "iddle_state")]
 script = ExtResource("15_f66ha")
+movement_stats = NodePath("../../MovementStats")
 sight = NodePath("../../Sight")
 attacking_state = NodePath("../AttackingState")
 iddle_state = NodePath("../IddleState")

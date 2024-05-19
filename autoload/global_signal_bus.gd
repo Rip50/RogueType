@@ -12,6 +12,7 @@ signal player_gold_changed(value: int)
 signal type_correct
 signal type_error
 signal type_erase
+signal pulse_changed(value: float)
 
 # Enemy signals
 signal enemy_died(enemy: Enemy)
@@ -72,3 +73,7 @@ func emit_type_error() -> void:
 
 func emit_type_erase() -> void:
 	type_erase.emit()
+
+
+func emit_pulse_changed(value: float) -> void:
+	pulse_changed.emit(value)

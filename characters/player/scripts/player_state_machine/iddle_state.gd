@@ -23,7 +23,7 @@ func physics(_delta: float) -> State2:
 
 
 func enter() -> void:
-	player.stop_smoothly()
+	player.velocity = Vector2.ZERO
 	animator.play("iddle")
 	set_physics_process(true)
 

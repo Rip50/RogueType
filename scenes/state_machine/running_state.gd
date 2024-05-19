@@ -13,7 +13,7 @@ func enter() -> void:
 
 
 func physics(delta: float) -> State2:
-	if speed <= 0.0:
+	if pulse <= 0.0:
 		return iddle_state
 		
 	var collider = sight.get_collider() as Node2D

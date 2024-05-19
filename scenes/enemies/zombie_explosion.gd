@@ -24,7 +24,7 @@ func _ready() -> void:
 		child.apply_impulse(force)
 	
 	disappearance_timer.timeout.connect(_free_parts)
-	disappearance_timer.start(10)
+	disappearance_timer.start(0.1)
 	
 	
 func _free_parts() -> void:
@@ -36,4 +36,4 @@ func _free_parts() -> void:
 func _disappear_and_free(body: RigidBody2D) -> void:
 	var tween := create_tween()
 	tween.finished.connect(body.queue_free)
-	tween.tween_property(body, "scale", Vector2(0.001, 0.001), 2)
+	tween.tween_property(body, "scale", Vector2(0.001, 0.001), 1)

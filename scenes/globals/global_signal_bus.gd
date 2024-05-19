@@ -1,4 +1,3 @@
-class_name GlobalSignalBus
 extends Node
 
 # Player signals

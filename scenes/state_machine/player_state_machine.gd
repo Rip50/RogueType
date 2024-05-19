@@ -5,27 +5,8 @@ var states: Array[State2]
 var previous_state: State2
 var current_state: State2
 
-var timer: Timer
 
 func _ready() -> void:
-	#TODO: refactor
-	SignalBus.type_correct.connect(func():
-		current_state.speed += 10.0
-		timer.start(0.1)
-	)
-	SignalBus.type_error.connect(func():
-		current_state.speed -= 20.0
-		timer.start(0.1)
-	)
-	
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.timeout.connect(func():
-		current_state.speed -= 1.0
-		timer.start(0.1)	
-	)
-	add_child(timer)
-	
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 

@@ -13,6 +13,7 @@ var view_is_clear := false
 var attack_completed := true
 var attack_timer: Timer
 
+
 func _ready() -> void:
 	attack_timer = Timer.new()
 	attack_timer.one_shot = true
@@ -22,13 +23,13 @@ func _ready() -> void:
 
 func enter() -> void:
 	view_is_clear = false
+	attack_completed = true
 	set_physics_process(true)
 	animator.animation_finished.connect(attack)
-	_begin_attacking()
 
 
 func physics(_delta: float) -> State2:
-	if speed <= 0.0 && attack_completed:
+	if pulse <= 0.0 && attack_completed:
 		return iddle_state
 		
 	var colliding_object = sight.get_collider() as Node2D
@@ -36,16 +37,24 @@ func physics(_delta: float) -> State2:
 		view_is_clear = true
 		if !attack_completed:
 			return self
-		elif speed > 0.0:
+		elif pulse > 0.0:
 			return running_state
-			
+	
+	if attack_completed:
+		_begin_attacking()
+	
 	view_is_clear = false
 	return self
 
 
 func _begin_attacking() -> void:
+	attack_completed = false
 	_last_attack_type = AttackType.MELEE_1
 	animator.play("melee_1")
+	
+	# Deal damage with small delay for animation to be in the middle
+	await get_tree().create_timer(0.05).timeout
+	player.attack_melee()
 
 
 func attack(_animation_name) -> void:

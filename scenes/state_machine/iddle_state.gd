@@ -14,9 +14,9 @@ func _ready() -> void:
 
 func physics(_delta: float) -> State2:
 	var colliding_object = sight.get_collider() as Node2D
-	if colliding_object != null && speed > 0:
+	if colliding_object != null && pulse > 0:
 		return attacking_state
-	elif speed > 0:
+	elif pulse > 0:
 		return running_state
 	
 	return self

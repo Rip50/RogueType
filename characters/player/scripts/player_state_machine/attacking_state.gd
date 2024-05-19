@@ -22,6 +22,7 @@ func _ready() -> void:
 
 
 func enter() -> void:
+	player.velocity = Vector2.ZERO
 	view_is_clear = false
 	attack_completed = true
 	set_physics_process(true)
@@ -29,9 +30,9 @@ func enter() -> void:
 
 
 func physics(_delta: float) -> State2:
-	if pulse <= 0.0 && attack_completed:
+	if pulse <= 0.0 and attack_completed:
 		return iddle_state
-		
+	
 	var colliding_object = sight.get_collider() as Node2D
 	if colliding_object == null:
 		view_is_clear = true
@@ -50,6 +51,8 @@ func physics(_delta: float) -> State2:
 func _begin_attacking() -> void:
 	attack_completed = false
 	_last_attack_type = AttackType.MELEE_1
+	
+	animator.speed_scale = 0.1 + pulse
 	animator.play("melee_1")
 	
 	# Deal damage with small delay for animation to be in the middle
@@ -58,10 +61,11 @@ func _begin_attacking() -> void:
 
 
 func attack(_animation_name) -> void:
-	if view_is_clear:
+	if view_is_clear or pulse <= 0.009:
 		attack_timer.start(attack_stats.cooldown_time_sec)
 		return
-		
+	
+	animator.speed_scale = 0.2 + pulse
 	if _last_attack_type == AttackType.MELEE_2:
 		_last_attack_type = AttackType.MELEE_1
 		animator.play("melee_1")

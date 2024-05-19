@@ -21,5 +21,6 @@ func physics(_delta: float) -> State2:
 		return attacking_state
 	
 	player.velocity = movement_stats.get_velocity()
+	animator.speed_scale = 0.5 + pulse
 	
 	return self

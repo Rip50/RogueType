@@ -17,6 +17,20 @@ func _ready() -> void:
 	text_input.grab_focus()
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	var keyEvent = event as InputEventKey
+	if keyEvent == null:
+		return
+	
+	match keyEvent.key_label:
+		KEY_LEFT:
+			SignalBus.emit_type_error()
+		KEY_RIGHT:
+			SignalBus.emit_type_correct()
+		_:
+			return
+
+
 func _process_player_input(input_text: String) -> void:
 	var displayed_text := ""
 	

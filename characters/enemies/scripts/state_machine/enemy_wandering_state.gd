@@ -2,6 +2,7 @@ class_name EnemyWanderingState
 extends State
 
 @export var vision_cast: RayCast2D
+@export var yield_other := false
 
 signal saw_player
 signal saw_enemy
@@ -20,6 +21,5 @@ func  _physics_process(_delta: float) -> void:
 	
 	if colliding_object.is_in_group("Player"):
 		saw_player.emit()
-	elif colliding_object.is_in_group("Enemy"):
+	elif colliding_object.is_in_group("Enemy") and yield_other:
 		saw_enemy.emit()
-	

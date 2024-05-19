@@ -18,7 +18,6 @@ func _ready() -> void:
 
 
 func _spawn() -> void:
-	return
 	var enemy_idx = randi_range(0, enemies.size() - 1)
 	var enemy_scene = enemies[enemy_idx]
 	var position = _get_enemy_position()

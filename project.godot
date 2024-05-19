@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="RogueType"
-run/main_scene="res://scenes/levels/level_night_forest.tscn"
+run/main_scene="res://levels/level_night_forest.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://scenes/globals/global_signal_bus.gd"
-GameDebugController="*res://scenes/globals/game_debug_controller.gd"
-TypingController="*res://scenes/globals/typing_controller.gd"
+SignalBus="*res://autoload/global_signal_bus.gd"
+GameDebugController="*res://autoload/game_debug_controller.gd"
+PulseProvider="*res://autoload/pulse_provider.gd"
 
 [display]
 
